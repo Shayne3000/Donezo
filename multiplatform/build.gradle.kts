@@ -1,12 +1,15 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
+    alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
-kotlin { // kotlin multiplatform project config block in the build config files.
+kotlin { // Config block for the Compose multiplatform project
     androidTarget {
         compilations.all {
             compileTaskProvider.configure {
@@ -34,11 +37,37 @@ kotlin { // kotlin multiplatform project config block in the build config files.
         // Android platform-specific source-set
         androidMain.dependencies {
             // Android platform-specific dependencies
+
+            // Activity Compose i.e. Component Activity
+            implementation(libs.androidx.activity.compose)
+
+            // Compose UI
+            implementation(compose.preview)
+
+            // Ktor OkHttp engine
+            implementation(libs.ktor.client.okhttp)
+            // Android Coroutines
+            implementation(libs.kotlinx.coroutines.android)
         }
 
         // Common code source-set
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            //put your shared/multiplatform dependencies here
+
+            // Compose UI
+            implementation(compose.ui)
+
+            // Room
+            implementation(libs.room.runtime)
+
+            // Ktor
+            implementation(libs.ktor.client.core)
+
+            // Kotlin Serialization
+            implementation(libs.kotlinx.serialization.json)
+
+            // Common code Coroutines
+            implementation(libs.kotlinx.coroutines.core)
         }
         // Common code test counterpart source-set
         commonTest.dependencies {
@@ -48,8 +77,19 @@ kotlin { // kotlin multiplatform project config block in the build config files.
         // iOS platform-specific source-set
         iosMain.dependencies {
             // iOS platform-specific dependencies
+            implementation(libs.ktor.client.darwin)
         }
     }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
 }
 
 android { // build configuration block for the android target of the multiplatform module
