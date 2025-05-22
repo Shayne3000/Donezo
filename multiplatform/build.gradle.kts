@@ -128,6 +128,9 @@ android { // build configuration block for the android target of the multiplatfo
     defaultConfig {
         minSdk = 24
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
