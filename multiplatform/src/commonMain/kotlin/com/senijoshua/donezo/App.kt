@@ -47,12 +47,10 @@ fun App() {
         }
 
         // TODO Setup AppTheme here and call Root Composable
-
-
     }
 }
 
 @Composable
 fun Root() {
-    // Settup Navhost within this root composable
+    // TODO Setup Navhost within this root composable
 }
