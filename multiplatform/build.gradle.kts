@@ -34,6 +34,13 @@ kotlin { // Config block for the Compose multiplatform project
     }
 
     sourceSets {
+        all{
+            languageSettings {
+                compilerOptions{
+                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                }
+            }
+        }
         // Android platform-specific source-set
         androidMain.dependencies {
             // Android platform-specific dependencies
@@ -46,6 +53,10 @@ kotlin { // Config block for the Compose multiplatform project
 
             // Ktor OkHttp engine
             implementation(libs.ktor.client.okhttp)
+
+            // Koin Android
+            implementation(libs.koin.android)
+
             // Android Coroutines
             implementation(libs.kotlinx.coroutines.android)
         }
@@ -73,7 +84,7 @@ kotlin { // Config block for the Compose multiplatform project
             // Date time
             implementation(libs.kotlinx.datetime)
 
-            // Koiin
+            // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
@@ -95,6 +106,7 @@ kotlin { // Config block for the Compose multiplatform project
 
             // Room
             implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
 
             // ViewModel compose
             implementation(libs.viewmodel.compose)
