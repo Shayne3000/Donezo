@@ -19,36 +19,32 @@ import org.koin.compose.KoinApplication
 @Composable
 @Preview
 fun App() {
-    KoinApplication(application = {
-        modules(appModule, platformModule)
-    }) {
-        // Coil ImageLoader configuration
-        setSingletonImageLoaderFactory { context: PlatformContext ->
-            ImageLoader.Builder(context)
-                .memoryCachePolicy(CachePolicy.ENABLED)
-                .memoryCache {
-                    MemoryCache.Builder()
-                        .maxSizePercent(context, percent = 0.25)
-                        .build()
+    // Coil ImageLoader configuration
+    setSingletonImageLoaderFactory { context: PlatformContext ->
+        ImageLoader.Builder(context)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .memoryCache {
+                MemoryCache.Builder()
+                    .maxSizePercent(context, percent = 0.25)
+                    .build()
+            }
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "image_cache")
+                    .maxSizePercent(percent = 0.02)
+                    .build()
+            }
+            .crossfade(true)
+            .apply {
+                if (isDebugBuild()) {
+                    logger(DebugLogger())
                 }
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .diskCache {
-                    DiskCache.Builder()
-                        .directory(FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "image_cache")
-                        .maxSizePercent(percent = 0.02)
-                        .build()
-                }
-                .crossfade(true)
-                .apply {
-                    if (isDebugBuild()) {
-                        logger(DebugLogger())
-                    }
-                }
-                .build()
-        }
-
-        // TODO Setup AppTheme here and call Root Composable
+            }
+            .build()
     }
+
+    // TODO Setup AppTheme here and call Root Composable
 }
 
 @Composable
