@@ -10,6 +10,7 @@ import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
 import com.senijoshua.donezo.di.appModule
+import com.senijoshua.donezo.di.platformModule
 import com.senijoshua.donezo.utils.isDebugBuild
 import okio.FileSystem
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -19,7 +20,7 @@ import org.koin.compose.KoinApplication
 @Preview
 fun App() {
     KoinApplication(application = {
-        modules(appModule)
+        modules(appModule, platformModule)
     }) {
         // Coil ImageLoader configuration
         setSingletonImageLoaderFactory { context: PlatformContext ->

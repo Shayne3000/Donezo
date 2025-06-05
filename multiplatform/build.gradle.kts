@@ -25,10 +25,10 @@ kotlin { // Config block for the Compose multiplatform project
         iosSimulatorArm64()
     ).forEach {
         // configuration for the resulting framework binary that will be generated from the
-        // KMP shared module when one wants to integrate said shared module into an iOS project.
+        // KMP shared module for when one wants to integrate/import said shared module into an iOS project.
         it.binaries.framework {
-            baseName = "multiplatform" // name of the resulting framework binary for importing in an iOS project
-            isStatic = true // builds framework as static lib instead of a dynmanic one.
+            baseName = "Multiplatform" // name of the resulting framework binary to be imported into an iOS project
+            isStatic = true // builds framework as static lib instead of a dynamic one.
             // Static frameworks are often preferred for easier integration and fewer runtime issues on iOS.
         }
     }
