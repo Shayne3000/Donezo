@@ -6,7 +6,8 @@ import androidx.room.RoomDatabase
 import com.senijoshua.donezo.data.local.DonezoDatabase
 
 /**
- * Android platform-specific database builder for instantiating Room on Android targets
+ * Android platform-specific database builder that would be called from
+ * common code to instantiate Room on Android targets.
  */
 fun getDatabaseBuilder(context: Context): RoomDatabase.Builder<DonezoDatabase> {
     val appContext = context.applicationContext

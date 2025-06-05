@@ -9,7 +9,8 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
 /**
- * iOS platform-specific database builder for instantiating Room on iOS targets.
+ * iOS platform-specific database builder that would be called from
+ * common code to instantiate Room on Android targets
  */
 fun getDatabaseBuilder(): RoomDatabase.Builder<DonezoDatabase> {
     val dbFilePath = documentDirectory() + DonezoDatabase.DATABASE_NAME
