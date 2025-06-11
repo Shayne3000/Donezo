@@ -94,9 +94,13 @@ kotlin { // Config block for the Compose multiplatform project
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.content.negotiaton)
 
             // Kotlin Serialization
             implementation(libs.kotlinx.serialization.json)
+
+            // Ktor kotlinx serialization registration artifact
+            implementation(libs.ktor.serialization.kotlinx.json)
 
             // Lifecycle compose
             implementation(libs.lifecycle.compose)
@@ -119,6 +123,8 @@ kotlin { // Config block for the Compose multiplatform project
         // iOS platform-specific source-set
         iosMain.dependencies {
             // iOS platform-specific dependencies
+
+            // Ktor Darwin Engine
             implementation(libs.ktor.client.darwin)
         }
     }

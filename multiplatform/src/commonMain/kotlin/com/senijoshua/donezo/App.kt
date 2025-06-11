@@ -44,10 +44,12 @@ fun App() {
             .build()
     }
 
-    // TODO Setup AppTheme here and call Root Composable
+    // TODO Setup Root Composable
 }
 
 @Composable
 fun Root() {
     // TODO Setup Navhost within this root composable
+
+    // TODO Call AppTheme within each screen and call
 }
