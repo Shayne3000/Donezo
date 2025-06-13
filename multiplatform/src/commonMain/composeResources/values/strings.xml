@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name = "tasks_tab_title">Tasks</string>
+    <string name = "completed_tab_title">Completed</string>
+    <string name = "characters_tab_title">Characters</string>
+</resources>
