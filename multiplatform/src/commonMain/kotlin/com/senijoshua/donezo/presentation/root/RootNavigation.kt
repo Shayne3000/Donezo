@@ -16,29 +16,29 @@ import org.jetbrains.compose.resources.StringResource
  */
 
 /**
- * List of [AppLevelRoute]s of the main destinations of the
+ * List of [AppLevelRoute]s for the navigation items in the
  * bottom navigation bar
  */
 val appLevelRoutes = buildList {
-    add(AppLevelRoute(Res.string.tasks_tab_title, Tasks, Res.drawable.ic_list_alt))
-    add(AppLevelRoute(Res.string.completed_tab_title, Completed, Res.drawable.ic_list_alt_check))
-    add(AppLevelRoute(Res.string.characters_tab_title, Characters, Res.drawable.ic_groups))
+    add(AppLevelRoute(Res.string.tasks_tab_title, TasksGraph, Res.drawable.ic_list_alt))
+    add(AppLevelRoute(Res.string.completed_tab_title, CompletedGraph, Res.drawable.ic_list_alt_check))
+    add(AppLevelRoute(Res.string.characters_tab_title, CharactersGraph, Res.drawable.ic_groups))
 }
 
 /**
- * App-level routes for the destinations hosted in the bottom navigation bar
+ * App-level nested nav graph routes for the destinations hosted in the bottom navigation bar
  */
 @Serializable
-object Tasks
+object TasksGraph
 
 @Serializable
-object Completed
+object CompletedGraph
 
 @Serializable
-object Characters
+object CharactersGraph
 
 /**
- * App-level route data
+ * App-level nested nav graph route data
  */
 data class AppLevelRoute<T : Any>(
     val name: StringResource,
