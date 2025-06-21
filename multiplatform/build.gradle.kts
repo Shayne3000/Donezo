@@ -82,6 +82,9 @@ kotlin { // Config block for the Compose multiplatform project
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
+            // Scalable pixels
+            implementation(libs.multiplatform.scalable.pixels)
+
             // Date time
             implementation(libs.kotlinx.datetime)
 
