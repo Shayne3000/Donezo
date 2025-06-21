@@ -10,6 +10,7 @@ import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
 import com.senijoshua.donezo.presentation.root.Root
+import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.utils.isDebugBuild
 import okio.FileSystem
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -42,7 +43,7 @@ fun App() {
             .build()
     }
 
-    Root()
-    // TODO Setup Root Composable and Wrap it in AppTheme since we'd
-    //  be using a bottom nav bar within a scaffold
+    DonezoTheme {
+        Root()
+    }
 }
