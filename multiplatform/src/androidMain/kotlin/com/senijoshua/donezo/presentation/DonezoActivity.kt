@@ -9,7 +9,6 @@ class DonezoActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // TODO Put in a Theme closure
             App()
         }
     }
