@@ -13,10 +13,8 @@ import com.senijoshua.donezo.presentation.root.Root
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.utils.isDebugBuild
 import okio.FileSystem
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
 fun App() {
     // Coil ImageLoader configuration
     setSingletonImageLoaderFactory { context: PlatformContext ->

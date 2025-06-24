@@ -1,6 +1,7 @@
 package com.senijoshua.donezo.presentation.tasks
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.senijoshua.donezo.presentation.root.TasksGraph
 import kotlinx.serialization.Serializable
@@ -13,6 +14,7 @@ object TasksRoute
  */
 fun NavGraphBuilder.tasksGraph() {
     navigation<TasksGraph>(startDestination = TasksRoute) {
+        composable<TasksRoute> {  }
         // TODO Task list and create task dialog destinations here.
     }
 }
