@@ -31,7 +31,7 @@ val backgroundLight = Color(0xFFF6FBF2)
 val onBackgroundLight = Color(0xFF181D18)
 // Screen background color
 val surfaceLight = Color(0xFFF6FBF2)
-// Text on screen and nav bar text and icon
+// Text on screen and unselected nav bar text and icon
 val onSurfaceLight = Color(0xFF181D18)
 val surfaceVariantLight = Color(0xFFDDE5DA)
 // Nav bar text unselected state

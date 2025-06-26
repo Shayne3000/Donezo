@@ -3,9 +3,10 @@ package com.senijoshua.donezo.presentation.root
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,13 +37,26 @@ fun Root(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            ) {
                 appLevelRoutes.forEachIndexed { index, appLevelRoute ->
                     val itemName = stringResource(appLevelRoute.name)
 
+                    val isTabSelected = index == selectedDestinationIndex
+
                     NavigationBarItem(
                         modifier = Modifier,
-                        selected = index == selectedDestinationIndex,
+                        selected = isTabSelected,
+                        colors = NavigationBarItemColors(
+                            unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                            unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                            selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                            selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                            selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledIconColor = MaterialTheme.colorScheme.onSurface,
+                            disabledTextColor = MaterialTheme.colorScheme.onSurface
+                        ),
                         onClick = {
                             navController.navigate(appLevelRoute.route) {
                                 launchSingleTop = true
@@ -57,7 +71,10 @@ fun Root(
                             )
                         },
                         label = {
-                            Text(text = itemName)
+                            Text(
+                                text = itemName,
+                                style = MaterialTheme.typography.labelMedium,
+                            )
                         },
                     )
                 }
