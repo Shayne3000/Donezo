@@ -46,7 +46,6 @@ fun Root(
                     val isTabSelected = index == selectedDestinationIndex
 
                     NavigationBarItem(
-                        modifier = Modifier,
                         selected = isTabSelected,
                         colors = NavigationBarItemColors(
                             unselectedIconColor = MaterialTheme.colorScheme.onSurface,
@@ -58,11 +57,11 @@ fun Root(
                             disabledTextColor = MaterialTheme.colorScheme.onSurface
                         ),
                         onClick = {
+                            selectedDestinationIndex = index
                             navController.navigate(appLevelRoute.route) {
                                 launchSingleTop = true
                                 restoreState = true
                             }
-                            selectedDestinationIndex = index
                         },
                         icon = {
                             Icon(

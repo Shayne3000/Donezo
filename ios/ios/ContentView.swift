@@ -1,9 +1,9 @@
 import SwiftUI
-import multiplatform
+import Multiplatform
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        PresentationDonezoViewControllerKt.DonezoViewController()
+        DonezoViewControllerKt.DonezoViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
