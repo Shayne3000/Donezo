@@ -1,7 +1,9 @@
 package com.senijoshua.donezo.presentation.root
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -15,10 +17,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.senijoshua.donezo.presentation.tasks.tasksGraph
+import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -37,50 +41,62 @@ fun Root(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar(
-                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            Box(
+                modifier = Modifier.padding(
+                    start = DonezoTheme.dimensions.medium,
+                    end = DonezoTheme.dimensions.medium,
+                    bottom = DonezoTheme.dimensions.medium
+                ).clip(RoundedCornerShape(DonezoTheme.dimensions.large))
             ) {
-                appLevelRoutes.forEachIndexed { index, appLevelRoute ->
-                    val itemName = stringResource(appLevelRoute.name)
+                NavigationBar(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                ) {
+                    appLevelRoutes.forEachIndexed { index, appLevelRoute ->
+                        val itemName = stringResource(appLevelRoute.name)
 
-                    val isTabSelected = index == selectedDestinationIndex
+                        val isTabSelected = index == selectedDestinationIndex
 
-                    NavigationBarItem(
-                        selected = isTabSelected,
-                        colors = NavigationBarItemColors(
-                            unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                            unselectedTextColor = MaterialTheme.colorScheme.onSurface,
-                            selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-                            selectedIconColor = MaterialTheme.colorScheme.onSurface,
-                            selectedTextColor = MaterialTheme.colorScheme.onSurface,
-                            disabledIconColor = MaterialTheme.colorScheme.onSurface,
-                            disabledTextColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        onClick = {
-                            selectedDestinationIndex = index
-                            navController.navigate(appLevelRoute.route) {
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                painter = painterResource(appLevelRoute.icon),
-                                contentDescription = itemName
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = itemName,
-                                style = MaterialTheme.typography.labelMedium,
-                            )
-                        },
-                    )
+                        NavigationBarItem(
+                            selected = isTabSelected,
+                            colors = NavigationBarItemColors(
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                                selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                disabledIconColor = MaterialTheme.colorScheme.onSurface,
+                                disabledTextColor = MaterialTheme.colorScheme.onSurface
+                            ),
+                            onClick = {
+                                selectedDestinationIndex = index
+                                navController.navigate(appLevelRoute.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(appLevelRoute.icon),
+                                    contentDescription = itemName
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = itemName,
+                                    style = MaterialTheme.typography.labelMedium,
+                                )
+                            },
+                        )
+                    }
                 }
             }
         }
     ) { paddingValues ->
-        NavHost(modifier = Modifier.padding(paddingValues), navController = navController, startDestination = startGraph) {
+        NavHost(
+            modifier = Modifier.padding(paddingValues),
+            navController = navController,
+            startDestination = startGraph
+        ) {
             // App-level nested nav graphs
             tasksGraph()
         }
