@@ -1,5 +1,6 @@
 package com.senijoshua.donezo.di
 
+import com.senijoshua.donezo.utils.isDebugBuild
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.DEFAULT
@@ -36,7 +37,7 @@ val networkingModule = module {
             }
             install(Logging) {
                 logger = Logger.DEFAULT
-                level = LogLevel.BODY
+                level = if (isDebugBuild()) LogLevel.BODY else LogLevel.NONE
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
         }

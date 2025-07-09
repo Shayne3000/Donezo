@@ -10,7 +10,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) {
     startKoin {
         // This gives Koin modules access to the Context from Android
         appDeclaration()
-        modules(appModule, platformModule)
+        modules(multiplatformModule, platformModule)
     }
 }
 
