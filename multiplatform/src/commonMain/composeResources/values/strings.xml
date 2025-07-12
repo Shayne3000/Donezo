@@ -3,4 +3,5 @@
     <string name = "tasks_tab_title">Tasks</string>
     <string name = "completed_tab_title">Completed</string>
     <string name = "characters_tab_title">Characters</string>
+    <string name = "generic_error_message">Something went wrong. Please try again later.</string>
 </resources>
