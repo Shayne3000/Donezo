@@ -84,6 +84,9 @@ kotlin { // Config block for the Compose multiplatform project
             // Scalable pixels
             implementation(libs.multiplatform.scalable.pixels)
 
+            // Shimmer
+            implementation(libs.shimmer)
+
             // Date time
             implementation(libs.kotlinx.datetime)
 
