@@ -38,7 +38,7 @@ fun TasksScreen(
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = stringResource(Res.string.generic_error_message)
 
-    TasksContent(snackBarHostState = snackBarHostState)
+    TasksContent(uiState = uiState, snackBarHostState = snackBarHostState)
 
     LaunchedEffect(Unit) {
         viewModel.uiEvent.collect { events ->
@@ -54,7 +54,7 @@ fun TasksScreen(
 
 @Composable
 fun TasksContent(
-    uiState: TasksUIState = TasksUIState.Loading,
+    uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
@@ -97,7 +97,7 @@ fun TasksContent(
                     top = DonezoTheme.dimensions.medium
                 ),
                 text = stringResource(Res.string.tasks_tab_title),
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
             // TODO Tasks list

@@ -36,11 +36,11 @@ internal fun DonezoTypography(): Typography {
     return Typography(
         //// Headers ////
         // Screen header
-        headlineLarge = TextStyle(
+        headlineMedium = TextStyle(
             fontFamily = lexend,
             fontWeight = FontWeight.Normal,
-            fontSize = 32.ssp,
-            lineHeight = 40.ssp
+            fontSize = 28.ssp,
+            lineHeight = 36.ssp
         ),
 
         // Dialog title
