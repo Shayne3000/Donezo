@@ -2,6 +2,7 @@ package com.senijoshua.donezo.presentation.tasks
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -15,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
@@ -35,7 +38,7 @@ fun TasksScreen(
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = stringResource(Res.string.generic_error_message)
 
-    TasksContent(uiState, snackBarHostState)
+    TasksContent(snackBarHostState = snackBarHostState)
 
     LaunchedEffect(Unit) {
         viewModel.uiEvent.collect { events ->
@@ -50,18 +53,24 @@ fun TasksScreen(
 }
 
 @Composable
-private fun TasksContent(
-    uiState: TasksUIState,
+fun TasksContent(
+    uiState: TasksUIState = TasksUIState.Loading,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
+    var showCreateTaskDialog by mutableStateOf(false)
+
+    if (showCreateTaskDialog) {
+        // TODO Show create task bottom sheet
+    }
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 onClick = {
-                    // TODO Show create task bottom sheet
+                    showCreateTaskDialog = true
                 }
             ) {
                 Icon(painter = painterResource(Res.drawable.ic_add), contentDescription = null)
@@ -78,10 +87,15 @@ private fun TasksContent(
             }
         }
     ) { paddingValues ->
-        Column(modifier = modifier.padding(paddingValues).background(color = MaterialTheme.colorScheme.surface)) {
-            // TODO Tasks header text
+        Column(
+            modifier = modifier
+                .fillMaxSize().background(color = MaterialTheme.colorScheme.surface)
+        ) {
             Text(
-                modifier = Modifier.padding(top = DonezoTheme.dimensions.medium),
+                modifier = Modifier.padding(
+                    start = DonezoTheme.dimensions.medium,
+                    top = DonezoTheme.dimensions.medium
+                ),
                 text = stringResource(Res.string.tasks_tab_title),
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onSurface,

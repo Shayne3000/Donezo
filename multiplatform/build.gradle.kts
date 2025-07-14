@@ -117,9 +117,6 @@ kotlin { // Config block for the Compose multiplatform project
             // Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
-
-            // ViewModel compose
-            implementation(libs.viewmodel.compose)
         }
         // Common code test counterpart source-set
         commonTest.dependencies {

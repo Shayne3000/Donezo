@@ -30,7 +30,7 @@ val onErrorContainerLight = Color(0xFF93000A)
 val backgroundLight = Color(0xFFF6FBF2)
 val onBackgroundLight = Color(0xFF181D18)
 // Screen background color
-val surfaceLight = Color(0xFFF6FBF2)
+val surfaceLight = Color(0xFFFFFFFF)
 // Text on screen and unselected nav bar text and icon
 val onSurfaceLight = Color(0xFF181D18)
 val surfaceVariantLight = Color(0xFFDDE5DA)

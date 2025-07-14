@@ -40,6 +40,7 @@ fun Root(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.surface,
         bottomBar = {
             Box(
                 modifier = Modifier.padding(
