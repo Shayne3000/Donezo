@@ -55,7 +55,7 @@ fun DonezoTheme(
         else -> lightColors
     }
 
-    CompositionLocalProvider(LocalDimensions provides Dimensions()) {
+    CompositionLocalProvider(LocalDimensions provides DonezoDimensions()) {
         // Can now implicitly access Dimensions in any descendant
         MaterialTheme(
             colorScheme = colorScheme,

@@ -31,7 +31,7 @@ class TasksViewModel : ViewModel() {
  * Representation of the state of the UI at any instant in time.
  */
 sealed interface TasksUIState {
-    data class Success(val tasks: List<ToDoTasks>) : TasksUIState
+    data class Success(val tasks: List<TodoTasks>) : TasksUIState
     data object Loading : TasksUIState
 }
 

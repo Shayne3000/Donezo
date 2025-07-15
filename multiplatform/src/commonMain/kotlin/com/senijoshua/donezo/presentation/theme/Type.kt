@@ -40,7 +40,7 @@ internal fun DonezoTypography(): Typography {
             fontFamily = lexend,
             fontWeight = FontWeight.Normal,
             fontSize = 28.ssp,
-            lineHeight = 36.ssp
+            lineHeight = 38.ssp
         ),
 
         // Dialog title

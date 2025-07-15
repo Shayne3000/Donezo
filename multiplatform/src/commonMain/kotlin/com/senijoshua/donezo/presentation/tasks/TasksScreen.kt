@@ -3,7 +3,10 @@ package com.senijoshua.donezo.presentation.tasks
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -95,14 +98,36 @@ fun TasksContent(
                 modifier = Modifier.padding(
                     start = DonezoTheme.dimensions.medium,
                     top = DonezoTheme.dimensions.medium
-                ),
+                ).fillMaxWidth(),
                 text = stringResource(Res.string.tasks_tab_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-            // TODO Tasks list
+            when (uiState) {
+                is TasksUIState.Loading -> {}
+                is TasksUIState.Success -> {
+                    LazyColumn(
+                        Modifier.padding(DonezoTheme.dimensions.xSmall).fillMaxSize()
+                    ) {
+                        items(items = uiState.tasks, key = { task -> task.id}) {
+
+                        }
+                    }
+                }
+            }
         }
     }
+}
+
+@Composable
+fun TaskItem(
+    task: TodoTasks,
+    modifier: Modifier = Modifier,
+    onMarkedAsDone: () -> Unit,
+    onEdit: (String, String) -> Unit,
+    onClick: () -> Unit,
+) {
+
 }
 
 @Composable
