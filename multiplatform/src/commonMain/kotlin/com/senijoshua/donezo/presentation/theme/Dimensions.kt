@@ -1,14 +1,39 @@
 package com.senijoshua.donezo.presentation.theme
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import network.chaintech.sdpcomposemultiplatform.sdp
+
 
 /**
- * Backing type of the dimension composition local that can be
- * accessed in any descendant below its declaration point.
+ * Dimensions CompositionLocal with default values that can be
+ * accessed in any descendant below its declaration point
  * A.K.A Composition Local type
+ */
+val LocalDimensions = staticCompositionLocalOf { Dimensions() }
+
+/**
+ * Implementation of the Dimension composition local
+ * with updated scalable values that will be
+ * accessed in the theme composable and its descendant
+ */
+@Composable
+internal fun DonezoDimensions(): Dimensions {
+    return Dimensions(
+        xxSmall = 2.sdp,
+        xSmall = 4.sdp,
+        small = 8.sdp,
+        medium = 16.sdp,
+        large = 32.sdp,
+        xLarge = 64.sdp,
+    )
+}
+
+/**
+ * Backing type of the dimension composition local.
  */
 @Immutable
 data class Dimensions(
@@ -19,9 +44,3 @@ data class Dimensions(
     val large: Dp = 32.dp,
     val xLarge: Dp = 64.dp,
 )
-
-/**
- * Dimensions CompositionLocal whose value will be
- * accessed in the theme composable and its children
- */
-val LocalDimensions = staticCompositionLocalOf { Dimensions() }
