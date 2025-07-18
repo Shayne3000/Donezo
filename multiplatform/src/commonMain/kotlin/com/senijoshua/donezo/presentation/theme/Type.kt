@@ -77,6 +77,14 @@ internal fun DonezoTypography(): Typography {
             letterSpacing = 0.25.ssp
         ),
 
+        bodySmall = TextStyle(
+            fontFamily = lexend,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.ssp,
+            lineHeight = 16.ssp,
+            letterSpacing = 0.4.ssp
+        ),
+
         //// Buttons ////
         labelLarge = TextStyle(
             fontFamily = lexend,

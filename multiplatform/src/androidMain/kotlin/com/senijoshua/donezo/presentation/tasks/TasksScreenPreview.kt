@@ -11,8 +11,8 @@ import com.senijoshua.donezo.presentation.theme.DonezoTheme
 fun TasksScreenPreview() {
     DonezoTheme {
         TasksContent(
-            uiState = TasksUIState.Loading,
-            snackBarHostState = remember{ SnackbarHostState() }
+            uiState = TasksUIState.Success(tasks = emptyList()),
+            snackBarHostState = remember { SnackbarHostState() }
         )
     }
 }
