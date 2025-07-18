@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
 internal val lightColors = lightColorScheme(
     primary = primaryLight,
@@ -14,6 +15,8 @@ internal val lightColors = lightColorScheme(
     onPrimaryContainer = onPrimaryContainerLight,
     secondaryContainer = secondaryContainerLight,
     onSecondaryContainer = onSecondaryContainerLight,
+    tertiaryContainer = tertiaryContainerLight,
+    onTertiaryContainer = onTertiaryContainerLight,
     error = errorLight,
     onError = onErrorLight,
     errorContainer = errorContainerLight,
@@ -33,6 +36,8 @@ internal val darkColors = darkColorScheme(
     onPrimaryContainer = onPrimaryContainerDark,
     secondaryContainer = secondaryContainerDark,
     onSecondaryContainer = onSecondaryContainerDark,
+    tertiaryContainer = tertiaryContainerDark,
+    onTertiaryContainer = onTertiaryContainerDark,
     error = errorDark,
     onError = onErrorDark,
     errorContainer = errorContainerDark,
@@ -65,12 +70,14 @@ fun DonezoTheme(
     }
 }
 
+
 /**
- * [DonezoTheme] object that helps provides
- * access to theming systems.
+ * Extension that adds the Dimension
+ * theming system to [MaterialTheme] and facilitates
+ * access to said system wherever MaterialTheme is being
+ * used i.e. within descendants of DonezoTheme.
  */
-object DonezoTheme{
-    val dimensions: Dimensions
-        @Composable
-        get() = LocalDimensions.current
-}
+val MaterialTheme.dimensions: Dimensions
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalDimensions.current

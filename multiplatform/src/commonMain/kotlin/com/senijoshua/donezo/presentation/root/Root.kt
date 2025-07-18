@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.senijoshua.donezo.presentation.tasks.tasksGraph
-import com.senijoshua.donezo.presentation.theme.DonezoTheme
+import com.senijoshua.donezo.presentation.theme.dimensions
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -44,10 +44,10 @@ fun Root(
         bottomBar = {
             Box(
                 modifier = Modifier.padding(
-                    start = DonezoTheme.dimensions.medium,
-                    end = DonezoTheme.dimensions.medium,
-                    bottom = DonezoTheme.dimensions.medium
-                ).clip(RoundedCornerShape(DonezoTheme.dimensions.large))
+                    start = MaterialTheme.dimensions.medium,
+                    end = MaterialTheme.dimensions.medium,
+                    bottom = MaterialTheme.dimensions.medium
+                ).clip(RoundedCornerShape(MaterialTheme.dimensions.large))
             ) {
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer,

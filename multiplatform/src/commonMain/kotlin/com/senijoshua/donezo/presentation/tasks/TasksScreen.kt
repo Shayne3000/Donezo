@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.senijoshua.donezo.presentation.theme.DonezoTheme
+import com.senijoshua.donezo.presentation.components.EmptyState
+import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
+import donezo.multiplatform.generated.resources.empty_state_text
 import donezo.multiplatform.generated.resources.generic_error_message
 import donezo.multiplatform.generated.resources.ic_add
 import donezo.multiplatform.generated.resources.tasks_tab_title
@@ -96,8 +98,8 @@ fun TasksContent(
         ) {
             Text(
                 modifier = Modifier.padding(
-                    start = DonezoTheme.dimensions.medium,
-                    top = DonezoTheme.dimensions.medium
+                    start = MaterialTheme.dimensions.medium,
+                    top = MaterialTheme.dimensions.medium
                 ).fillMaxWidth(),
                 text = stringResource(Res.string.tasks_tab_title),
                 style = MaterialTheme.typography.headlineMedium,
@@ -106,11 +108,15 @@ fun TasksContent(
             when (uiState) {
                 is TasksUIState.Loading -> {}
                 is TasksUIState.Success -> {
-                    LazyColumn(
-                        Modifier.padding(DonezoTheme.dimensions.xSmall).fillMaxSize()
-                    ) {
-                        items(items = uiState.tasks, key = { task -> task.id}) {
+                    if (uiState.tasks.isEmpty()) {
+                        EmptyState(stringResource(Res.string.empty_state_text))
+                    } else {
+                        LazyColumn(
+                            Modifier.padding(MaterialTheme.dimensions.xSmall).fillMaxSize()
+                        ) {
+                            items(items = uiState.tasks, key = { task -> task.id }) {
 
+                            }
                         }
                     }
                 }
