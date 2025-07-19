@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.2"
+agp = "8.11.1"
 androidx-activityCompose = "1.10.1"
 coil = "3.2.0"
 compose-multiplatform = "1.8.1" # Also compose version
