@@ -101,5 +101,13 @@ internal fun DonezoTypography(): Typography {
             lineHeight = 26.ssp,
             letterSpacing = 0.5.ssp
         ),
+
+        labelSmall = TextStyle(
+            fontFamily = lexend,
+            fontWeight = FontWeight.Medium,
+            fontSize = 11.ssp,
+            lineHeight = 16.ssp,
+            letterSpacing = 0.5.ssp
+        ),
     )
 }

@@ -49,11 +49,11 @@ kotlin { // Config block for the Compose multiplatform project
             // Activity Compose i.e. Component Activity
             implementation(libs.androidx.activity.compose)
 
-            // Compose Previews
-            implementation(compose.uiTooling)
-
             // Ktor OkHttp engine
             implementation(libs.ktor.client.okhttp)
+
+            // Compose Previews
+            implementation(compose.uiTooling)
 
             // Koin Android
             implementation(libs.koin.android)
@@ -78,6 +78,8 @@ kotlin { // Config block for the Compose multiplatform project
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.uiTooling)
+            implementation(compose.components.uiToolingPreview)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
 

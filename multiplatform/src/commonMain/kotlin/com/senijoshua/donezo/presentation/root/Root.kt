@@ -84,7 +84,7 @@ fun Root(
                             label = {
                                 Text(
                                     text = itemName,
-                                    style = MaterialTheme.typography.labelMedium,
+                                    style = MaterialTheme.typography.labelSmall,
                                 )
                             },
                         )
@@ -103,5 +103,3 @@ fun Root(
         }
     }
 }
-
-

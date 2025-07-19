@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
+import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.empty_state_text
@@ -33,6 +34,7 @@ import donezo.multiplatform.generated.resources.ic_add
 import donezo.multiplatform.generated.resources.tasks_tab_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -139,4 +141,26 @@ fun TaskItem(
 @Composable
 private fun LoadingShimmer() {
     // TODO Tasks loading shimmer after determining how the view would look.
+}
+
+@Preview
+@Composable
+fun TasksScreenLightPreview() {
+    DonezoTheme {
+        TasksContent(
+            uiState = TasksUIState.Success(tasks = emptyList()),
+            snackBarHostState = remember { SnackbarHostState() }
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TasksScreenDarkPreview() {
+    DonezoTheme(darkTheme = true) {
+        TasksContent(
+            uiState = TasksUIState.Success(tasks = emptyList()),
+            snackBarHostState = remember { SnackbarHostState() }
+        )
+    }
 }
