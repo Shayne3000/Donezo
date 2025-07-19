@@ -1,12 +1,18 @@
 package com.senijoshua.donezo.presentation.tasks
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -22,15 +28,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
+import donezo.multiplatform.generated.resources.complete_task_text
 import donezo.multiplatform.generated.resources.empty_state_text
 import donezo.multiplatform.generated.resources.generic_error_message
 import donezo.multiplatform.generated.resources.ic_add
+import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.tasks_tab_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -130,12 +139,52 @@ fun TasksContent(
 @Composable
 fun TaskItem(
     task: TodoTasks,
-    modifier: Modifier = Modifier,
     onMarkedAsDone: () -> Unit,
     onEdit: (String, String) -> Unit,
+    onDelete: () -> Unit,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+        border = BorderStroke(
+            MaterialTheme.dimensions.xxSmall,
+            color = MaterialTheme.colorScheme.outlineVariant
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xSmall)
+    ) {
+        Column {
+            Row {}
+            Text(
+                text = task.title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = task.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Button(
+                modifier = Modifier.align(Alignment.End),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                onClick = {
+                    onMarkedAsDone()
+                }) {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_completed),
+                    contentDescription = null
+                )
+                Text(
+                    text = stringResource(Res.string.complete_task_text),
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            }
+        }
+    }
 }
 
 @Composable

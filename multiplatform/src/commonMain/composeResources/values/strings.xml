@@ -6,4 +6,6 @@
     <string name = "generic_error_message">Something went wrong. Please try again later.</string>
     <!--Empty state-->
     <string name="empty_state_text">You currently have no tasks to do. Click the button below to add some.</string>
+    <!--Tasks screen-->
+    <string name="complete_task_text">Mark as Done</string>
 </resources>
