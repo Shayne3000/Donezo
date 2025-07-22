@@ -40,19 +40,19 @@ fun EmptyState(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = MaterialTheme.dimensions.medium)
-                .clip(RoundedCornerShape(MaterialTheme.dimensions.medium))
+                .padding(horizontal = MaterialTheme.dimensions.small)
+                .clip(RoundedCornerShape(MaterialTheme.dimensions.small))
                 .background(color = MaterialTheme.colorScheme.tertiaryContainer),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                modifier = Modifier.padding(start = MaterialTheme.dimensions.small),
+                modifier = Modifier.padding(start = MaterialTheme.dimensions.xSmall),
                 painter = painterResource(Res.drawable.ic_info),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
-                modifier = Modifier.padding(MaterialTheme.dimensions.small),
+                modifier = Modifier.padding(MaterialTheme.dimensions.xSmall),
                 text = text,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onTertiaryContainer,

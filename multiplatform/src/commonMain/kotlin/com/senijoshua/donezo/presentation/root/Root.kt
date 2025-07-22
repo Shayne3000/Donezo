@@ -44,9 +44,9 @@ fun Root(
         bottomBar = {
             Box(
                 modifier = Modifier.padding(
-                    start = MaterialTheme.dimensions.medium,
-                    end = MaterialTheme.dimensions.medium,
-                    bottom = MaterialTheme.dimensions.medium
+                    start = MaterialTheme.dimensions.small,
+                    end = MaterialTheme.dimensions.small,
+                    bottom = MaterialTheme.dimensions.small
                 ).clip(RoundedCornerShape(MaterialTheme.dimensions.large))
             ) {
                 NavigationBar(

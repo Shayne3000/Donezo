@@ -21,14 +21,17 @@ val LocalDimensions = staticCompositionLocalOf { Dimensions() }
  * accessed in the theme composable and its descendant
  */
 @Composable
-internal fun DonezoDimensions(): Dimensions {
+internal fun donezoDimensions(): Dimensions {
     return Dimensions(
-        xxSmall = 2.sdp,
-        xSmall = 4.sdp,
-        small = 8.sdp,
-        medium = 16.sdp,
+        xxxSmall = 2.sdp,
+        xxSmall = 4.sdp,
+        xSmall = 8.sdp,
+        small = 16.sdp,
+        medium = 24.sdp,
         large = 32.sdp,
-        xLarge = 64.sdp,
+        xLarge = 48.sdp,
+        xxLarge = 56.sdp,
+        xxxLarge = 64.sdp,
     )
 }
 
@@ -37,10 +40,13 @@ internal fun DonezoDimensions(): Dimensions {
  */
 @Immutable
 data class Dimensions(
-    val xxSmall: Dp = 2.dp,
-    val xSmall: Dp = 4.dp,
-    val small: Dp = 8.dp,
-    val medium: Dp = 16.dp,
+    val xxxSmall: Dp = 2.dp,
+    val xxSmall: Dp = 4.dp,
+    val xSmall: Dp = 8.dp,
+    val small: Dp = 16.dp,
+    val medium: Dp = 24.dp,
     val large: Dp = 32.dp,
-    val xLarge: Dp = 64.dp,
+    val xLarge: Dp = 48.dp,
+    val xxLarge: Dp = 56.dp,
+    val xxxLarge: Dp = 64.dp,
 )
