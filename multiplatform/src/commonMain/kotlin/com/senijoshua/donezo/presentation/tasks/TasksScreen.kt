@@ -149,14 +149,15 @@ fun TasksContent(
                         ) {
                             items(items = uiState.tasks, key = { task -> task.id }) { task ->
                                 TaskItem(
-                                    modifier = Modifier.padding(vertical = MaterialTheme.dimensions.xSmall),
+                                    modifier = Modifier.padding(vertical = MaterialTheme.dimensions.xSmall).animateItem(),
                                     task = task,
                                     onMarkedAsDone = {
-
+                                        // animate item away
                                     },
                                     onEdit = { title, description ->
+                                        // TODO Show create task dialog with textfields
                                         showCreateTaskDialog = true
-                                             },
+                                    },
                                     onDelete = {
                                         // TODO Show delete confirmation dialog
                                     },
@@ -201,7 +202,6 @@ fun TaskItem(
                     style = MaterialTheme.typography.bodySmall,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                // TODO Use offset or graphic layer to move it right beyond its bounds
                 IconButton(
                     modifier = Modifier.offset(x = MaterialTheme.dimensions.xSmall),
                     onClick = {
@@ -231,7 +231,6 @@ fun TaskItem(
                 overflow = TextOverflow.Ellipsis
             )
             Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small, bottom = MaterialTheme.dimensions.xSmall), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                // TODO Use offset or graphic layer to move it left beyond its bounds
                 IconButton(
                     modifier = Modifier.offset(x = -(MaterialTheme.dimensions.xSmall)),
                     onClick = {
