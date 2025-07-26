@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -202,6 +203,7 @@ fun TaskItem(
                 Spacer(modifier = Modifier.weight(1f))
                 // TODO Use offset or graphic layer to move it right beyond its bounds
                 IconButton(
+                    modifier = Modifier.offset(x = MaterialTheme.dimensions.xSmall),
                     onClick = {
                         onEdit(task.title, task.description)
                     }) {
@@ -231,6 +233,7 @@ fun TaskItem(
             Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small, bottom = MaterialTheme.dimensions.xSmall), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 // TODO Use offset or graphic layer to move it left beyond its bounds
                 IconButton(
+                    modifier = Modifier.offset(x = -(MaterialTheme.dimensions.xSmall)),
                     onClick = {
                         onDelete()
                     }) {
