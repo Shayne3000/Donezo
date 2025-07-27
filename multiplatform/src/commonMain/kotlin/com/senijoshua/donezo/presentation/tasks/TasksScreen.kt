@@ -311,14 +311,25 @@ private fun TasksBottomSheet(
     ModalBottomSheet(
         modifier = modifier,
         sheetState = taskBottomSheetState,
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        dragHandle = null
     ) {
         when (taskBottomSheetMode) {
             TaskBottomSheetMode.CREATE -> {
-                
+                Column(modifier = Modifier) {
+                    // TODO Text New Task, with textfields for title and description (the text in
+                    //  the field scrolls when full) with a save button at the top right
+                }
             }
-            TaskBottomSheetMode.VIEW -> {}
-            TaskBottomSheetMode.EDIT -> {}
+            TaskBottomSheetMode.VIEW -> {
+                // TODO Task title, Task description (with the ability to scroll to see more),
+                //  at the top right an edit button and at the bottom a delete button.
+                //  Edit button animates out and changes the mode to edit
+            }
+            TaskBottomSheetMode.EDIT -> {
+                // TODO Task title textfield with task title, task description textfield with task description,
+                //  A save button at the top rgiht
+            }
         }
     }
 }
