@@ -78,7 +78,6 @@ kotlin { // Config block for the Compose multiplatform project
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
-            implementation(compose.uiTooling)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
