@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.senijoshua.donezo.presentation.tasks
 
 import androidx.compose.foundation.background
@@ -22,17 +24,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -90,16 +96,14 @@ fun TasksScreen(
 }
 
 @Composable
-fun TasksContent(
+private fun TasksContent(
     uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
-    var showCreateTaskDialog by mutableStateOf(false)
-
-    if (showCreateTaskDialog) {
-        // TODO Show create task bottom sheet
-    }
+    var showTaskDialog by mutableStateOf(false)
+    val sheetState = rememberModalBottomSheetState()
+    var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
 
     Scaffold(
         floatingActionButton = {
@@ -107,7 +111,8 @@ fun TasksContent(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 onClick = {
-                    showCreateTaskDialog = true
+                    taskBottomSheetMode = TaskBottomSheetMode.CREATE
+                    showTaskDialog = true
                 }
             ) {
                 Icon(painter = painterResource(Res.drawable.ic_add), contentDescription = null)
@@ -144,25 +149,29 @@ fun TasksContent(
                         EmptyState(stringResource(Res.string.empty_state_text))
                     } else {
                         LazyColumn(
-                            Modifier.padding(MaterialTheme.dimensions.xxSmall).fillMaxSize(),
+                            Modifier
+                                .padding(MaterialTheme.dimensions.xxSmall).fillMaxSize(),
                             contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small)
                         ) {
                             items(items = uiState.tasks, key = { task -> task.id }) { task ->
                                 TaskItem(
-                                    modifier = Modifier.padding(vertical = MaterialTheme.dimensions.xSmall).animateItem(),
+                                    modifier = Modifier
+                                        .padding(vertical = MaterialTheme.dimensions.xSmall)
+                                        .animateItem(),
                                     task = task,
                                     onMarkedAsDone = {
                                         // animate item away
                                     },
                                     onEdit = { title, description ->
-                                        // TODO Show create task dialog with textfields
-                                        showCreateTaskDialog = true
+                                        taskBottomSheetMode = TaskBottomSheetMode.EDIT
+                                        showTaskDialog = true
                                     },
                                     onDelete = {
                                         // TODO Show delete confirmation dialog
                                     },
                                     onClick = {
-                                        showCreateTaskDialog = true
+                                        taskBottomSheetMode = TaskBottomSheetMode.VIEW
+                                        showTaskDialog = true
                                     }
                                 )
                             }
@@ -171,11 +180,24 @@ fun TasksContent(
                 }
             }
         }
+
+        if (showTaskDialog) {
+           TasksBottomSheet(
+               taskBottomSheetMode = taskBottomSheetMode,
+               taskBottomSheetState = sheetState,
+               onChangeBottomSheetMode = { newMode ->
+                   taskBottomSheetMode = newMode
+               },
+               onDismiss = {
+                   showTaskDialog = false
+               }
+           )
+        }
     }
 }
 
 @Composable
-fun TaskItem(
+private fun TaskItem(
     task: TodoTasks,
     onMarkedAsDone: () -> Unit,
     onEdit: (String, String) -> Unit,
@@ -191,7 +213,10 @@ fun TaskItem(
         elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
     ) {
         Column(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small)) {
-            Row(modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     painter = painterResource(Res.drawable.ic_date),
                     contentDescription = null,
@@ -275,14 +300,43 @@ fun TaskItem(
     }
 }
 
+@Composable
+private fun TasksBottomSheet(
+    taskBottomSheetMode: TaskBottomSheetMode,
+    taskBottomSheetState: SheetState,
+    onDismiss: () -> Unit,
+    onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    ModalBottomSheet(
+        modifier = modifier,
+        sheetState = taskBottomSheetState,
+        onDismissRequest = onDismiss
+    ) {
+        when (taskBottomSheetMode) {
+            TaskBottomSheetMode.CREATE -> {
+                
+            }
+            TaskBottomSheetMode.VIEW -> {}
+            TaskBottomSheetMode.EDIT -> {}
+        }
+    }
+}
+
 private fun getDateFormat(): DateTimeFormat<LocalDate> {
     return LocalDate.Format {
         day()
-        char( ' ')
+        char(' ')
         monthName(names = MonthNames.ENGLISH_ABBREVIATED)
-        char( ' ')
+        char(' ')
         year()
     }
+}
+
+private enum class TaskBottomSheetMode {
+    CREATE,
+    VIEW,
+    EDIT
 }
 
 @Preview
