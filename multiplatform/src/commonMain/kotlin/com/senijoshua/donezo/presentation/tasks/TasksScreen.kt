@@ -230,7 +230,14 @@ fun TaskItem(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small, bottom = MaterialTheme.dimensions.xSmall), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(
+                    top = MaterialTheme.dimensions.small,
+                    bottom = MaterialTheme.dimensions.xSmall
+                ),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 IconButton(
                     modifier = Modifier.offset(x = -(MaterialTheme.dimensions.xSmall)),
                     onClick = {
@@ -278,14 +285,9 @@ private fun getDateFormat(): DateTimeFormat<LocalDate> {
     }
 }
 
-@Composable
-private fun LoadingShimmer() {
-    // TODO Tasks loading shimmer after determining how the view would look.
-}
-
 @Preview
 @Composable
-fun TaskItemLightPreview() {
+private fun TaskItemLightPreview() {
     DonezoTheme {
         Surface {
             TaskItem(
@@ -302,7 +304,7 @@ fun TaskItemLightPreview() {
 
 @Preview
 @Composable
-fun TaskItemDarkPreview() {
+private fun TaskItemDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
             TaskItem(
@@ -319,7 +321,7 @@ fun TaskItemDarkPreview() {
 
 @Preview
 @Composable
-fun TasksScreenLightPreview() {
+private fun TasksScreenLightPreview() {
     DonezoTheme {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
@@ -330,7 +332,7 @@ fun TasksScreenLightPreview() {
 
 @Preview
 @Composable
-fun TasksScreenDarkPreview() {
+private fun TasksScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),

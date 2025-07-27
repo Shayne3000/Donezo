@@ -11,7 +11,7 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 /**
  * Dimensions CompositionLocal with default values that can be
  * accessed in any descendant below its declaration point
- * A.K.A Composition Local type
+ * A.K.A CompositionLocal type
  */
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }
 
@@ -36,7 +36,7 @@ internal fun donezoDimensions(): Dimensions {
 }
 
 /**
- * Backing type of the dimension composition local.
+ * Backing type of the Dimension CompositionLocal.
  */
 @Immutable
 data class Dimensions(
@@ -49,4 +49,7 @@ data class Dimensions(
     val xLarge: Dp = 48.dp,
     val xxLarge: Dp = 56.dp,
     val xxxLarge: Dp = 64.dp,
+    // This represents custom sizes for components whose dimensions
+    // do not fit within the above structure
+    val custom112: Dp = 112.dp
 )
