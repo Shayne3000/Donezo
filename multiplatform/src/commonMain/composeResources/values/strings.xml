@@ -8,4 +8,7 @@
     <string name="empty_state_text">You currently have no tasks to do. Click the button below to add some.</string>
     <!--Tasks screen-->
     <string name="complete_task_text">Mark done</string>
+    <string name="task_bottom_sheet_title">New Task</string>
+    <string name="task_bottom_sheet_title_placeholder">Title</string>
+    <string name="task_bottom_sheet_description_placeholder">Description</string>
 </resources>

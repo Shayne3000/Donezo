@@ -38,6 +38,8 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,6 +49,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -62,6 +66,8 @@ import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
+import donezo.multiplatform.generated.resources.task_bottom_sheet_title
+import donezo.multiplatform.generated.resources.task_bottom_sheet_title_placeholder
 import donezo.multiplatform.generated.resources.tasks_tab_title
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
@@ -182,16 +188,16 @@ private fun TasksContent(
         }
 
         if (showTaskDialog) {
-           TasksBottomSheet(
-               taskBottomSheetMode = taskBottomSheetMode,
-               taskBottomSheetState = sheetState,
-               onChangeBottomSheetMode = { newMode ->
-                   taskBottomSheetMode = newMode
-               },
-               onDismiss = {
-                   showTaskDialog = false
-               }
-           )
+            TasksBottomSheet(
+                taskBottomSheetMode = taskBottomSheetMode,
+                taskBottomSheetState = sheetState,
+                onChangeBottomSheetMode = { newMode ->
+                    taskBottomSheetMode = newMode
+                },
+                onDismiss = {
+                    showTaskDialog = false
+                }
+            )
         }
     }
 }
@@ -303,29 +309,41 @@ private fun TaskItem(
 @Composable
 private fun TasksBottomSheet(
     taskBottomSheetMode: TaskBottomSheetMode,
-    taskBottomSheetState: SheetState,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
     modifier: Modifier = Modifier,
+    taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
     ModalBottomSheet(
         modifier = modifier,
         sheetState = taskBottomSheetState,
         onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
         dragHandle = null
     ) {
+        var title by mutableStateOf(TextFieldValue(""))
+        var description by mutableStateOf("")
+
         when (taskBottomSheetMode) {
             TaskBottomSheetMode.CREATE -> {
                 Column(modifier = Modifier) {
+                Column(modifier = Modifier.padding(MaterialTheme.dimensions.small)) {
+                    Text(
+                        text = stringResource(Res.string.task_bottom_sheet_title),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
                     // TODO Text New Task, with textfields for title and description (the text in
                     //  the field scrolls when full) with a save button at the top right
                 }
             }
+
             TaskBottomSheetMode.VIEW -> {
                 // TODO Task title, Task description (with the ability to scroll to see more),
                 //  at the top right an edit button and at the bottom a delete button.
                 //  Edit button animates out and changes the mode to edit
             }
+
             TaskBottomSheetMode.EDIT -> {
                 // TODO Task title textfield with task title, task description textfield with task description,
                 //  A save button at the top rgiht

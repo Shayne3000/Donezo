@@ -17,6 +17,7 @@ val secondaryContainerLight = Color(0xFFD3E8D2)
 // Selected Nav icon color
 val onSecondaryContainerLight = Color(0xFF394B3B)
 // Broader color expression for bringing heightened attention to something
+val tertiaryLight = Color(0xFF03A656E)
 val tertiaryContainerLight = Color(0xFFBDEAF5)
 val onTertiaryContainerLight = Color(0xFF204D55)
 // Error snack bar
@@ -52,6 +53,7 @@ val secondaryDark = Color(0xFFB7CCB7)
 val onSecondaryDark = Color(0xFF233426)
 val secondaryContainerDark = Color(0xFF394B3B)
 val onSecondaryContainerDark = Color(0xFFD3E8D2)
+val tertiaryDark = Color(0xFFA2CED8)
 val tertiaryContainerDark = Color(0xFF204D55)
 val onTertiaryContainerDark = Color(0xFFBDEAF5)
 val errorDark = Color(0xFFFFB4AB)
