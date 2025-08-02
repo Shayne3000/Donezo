@@ -32,6 +32,7 @@ internal fun donezoDimensions(): Dimensions {
         xLarge = 48.sdp,
         xxLarge = 56.sdp,
         xxxLarge = 64.sdp,
+        custom112 = 112.sdp,
     )
 }
 

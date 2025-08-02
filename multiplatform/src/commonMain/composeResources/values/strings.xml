@@ -9,6 +9,7 @@
     <!--Tasks screen-->
     <string name="complete_task_text">Mark done</string>
     <string name="task_bottom_sheet_title">New Task</string>
-    <string name="task_bottom_sheet_title_placeholder">Title</string>
-    <string name="task_bottom_sheet_description_placeholder">Description</string>
+    <string name="task_bottom_sheet_title_placeholder">Enter a title</string>
+    <string name="task_bottom_sheet_description_placeholder">Enter a description for your task</string>
+    <string name="save">Save</string>
 </resources>

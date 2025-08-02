@@ -38,8 +38,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,11 +47,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -66,6 +64,8 @@ import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
+import donezo.multiplatform.generated.resources.save
+import donezo.multiplatform.generated.resources.task_bottom_sheet_description_placeholder
 import donezo.multiplatform.generated.resources.task_bottom_sheet_title
 import donezo.multiplatform.generated.resources.task_bottom_sheet_title_placeholder
 import donezo.multiplatform.generated.resources.tasks_tab_title
@@ -194,6 +194,8 @@ private fun TasksContent(
                 onChangeBottomSheetMode = { newMode ->
                     taskBottomSheetMode = newMode
                 },
+                onSaveTask = {
+                },
                 onDismiss = {
                     showTaskDialog = false
                 }
@@ -311,6 +313,7 @@ private fun TasksBottomSheet(
     taskBottomSheetMode: TaskBottomSheetMode,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
+    onSaveTask: () -> Unit,
     modifier: Modifier = Modifier,
     taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
@@ -321,21 +324,14 @@ private fun TasksBottomSheet(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         dragHandle = null
     ) {
-        var title by mutableStateOf(TextFieldValue(""))
-        var description by mutableStateOf("")
-
         when (taskBottomSheetMode) {
             TaskBottomSheetMode.CREATE -> {
-                Column(modifier = Modifier) {
-                Column(modifier = Modifier.padding(MaterialTheme.dimensions.small)) {
-                    Text(
-                        text = stringResource(Res.string.task_bottom_sheet_title),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    // TODO Text New Task, with textfields for title and description (the text in
-                    //  the field scrolls when full) with a save button at the top right
-                }
+                TaskBottomSheetCreateContent(
+                    onSaveTask = {
+                        onDismiss()
+                        onSaveTask()
+                    }
+                )
             }
 
             TaskBottomSheetMode.VIEW -> {
@@ -349,6 +345,70 @@ private fun TasksBottomSheet(
                 //  A save button at the top rgiht
             }
         }
+    }
+}
+
+@Composable
+private fun TaskBottomSheetCreateContent(
+    modifier: Modifier = Modifier,
+    onSaveTask: () -> Unit,
+) {
+    var title by mutableStateOf(TextFieldValue(""))
+    var description by mutableStateOf(TextFieldValue(""))
+
+    Column(modifier = modifier.fillMaxWidth().padding(MaterialTheme.dimensions.small)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(Res.string.task_bottom_sheet_title),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Button(
+                modifier = Modifier.wrapContentSize(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                shape = RoundedCornerShape(CornerSize(MaterialTheme.dimensions.xxSmall)),
+                contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.xSmall),
+                onClick = {
+                    if (title.text.isNotEmpty() || description.text.isNotEmpty()) {
+                        onSaveTask()
+                    }
+                }
+            ) {
+                Text(
+                    text = stringResource(Res.string.save),
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            }
+        }
+
+        DonezoTextField(
+            value = title,
+            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small),
+            placeholderText = stringResource(Res.string.task_bottom_sheet_title_placeholder),
+            isSingleLine = true,
+            onValueChanged = { newTextFieldValue ->
+                title = newTextFieldValue
+            }
+        )
+
+        DonezoTextField(
+            value = description,
+            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small).height(
+                MaterialTheme.dimensions.custom112
+            ),
+            placeholderText = stringResource(Res.string.task_bottom_sheet_description_placeholder),
+            onValueChanged = { newTextFieldValue ->
+                description = newTextFieldValue
+            },
+            maxLines = 5
+        )
     }
 }
 
@@ -366,6 +426,30 @@ private enum class TaskBottomSheetMode {
     CREATE,
     VIEW,
     EDIT
+}
+
+@Preview
+@Composable
+private fun TaskBottomSheetCreateContentLightPreview() {
+    DonezoTheme {
+        Surface {
+            TaskBottomSheetCreateContent(
+                onSaveTask = {},
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun TaskBottomSheetCreateContentDarkPreview() {
+    DonezoTheme(darkTheme = true) {
+        Surface {
+            TaskBottomSheetCreateContent(
+                onSaveTask = {},
+            )
+        }
+    }
 }
 
 @Preview
