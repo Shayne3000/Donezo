@@ -30,9 +30,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -47,12 +45,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.components.EmptyState
+import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
@@ -64,10 +61,6 @@ import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
-import donezo.multiplatform.generated.resources.save
-import donezo.multiplatform.generated.resources.task_bottom_sheet_description_placeholder
-import donezo.multiplatform.generated.resources.task_bottom_sheet_title
-import donezo.multiplatform.generated.resources.task_bottom_sheet_title_placeholder
 import donezo.multiplatform.generated.resources.tasks_tab_title
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
@@ -110,6 +103,7 @@ private fun TasksContent(
     var showTaskDialog by mutableStateOf(false)
     val sheetState = rememberModalBottomSheetState()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
+    var selectedTask: TodoTasks? = null
 
     Scaffold(
         floatingActionButton = {
@@ -168,7 +162,7 @@ private fun TasksContent(
                                     onMarkedAsDone = {
                                         // animate item away
                                     },
-                                    onEdit = { title, description ->
+                                    onEdit = { task ->
                                         taskBottomSheetMode = TaskBottomSheetMode.EDIT
                                         showTaskDialog = true
                                     },
@@ -189,6 +183,7 @@ private fun TasksContent(
 
         if (showTaskDialog) {
             TasksBottomSheet(
+                selectedTask = selectedTask,
                 taskBottomSheetMode = taskBottomSheetMode,
                 taskBottomSheetState = sheetState,
                 onChangeBottomSheetMode = { newMode ->
@@ -208,7 +203,7 @@ private fun TasksContent(
 private fun TaskItem(
     task: TodoTasks,
     onMarkedAsDone: () -> Unit,
-    onEdit: (String, String) -> Unit,
+    onEdit: (TodoTasks) -> Unit,
     onDelete: () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -238,7 +233,7 @@ private fun TaskItem(
                 IconButton(
                     modifier = Modifier.offset(x = MaterialTheme.dimensions.xSmall),
                     onClick = {
-                        onEdit(task.title, task.description)
+                        onEdit(task)
                     }) {
                     Icon(
                         painter = painterResource(Res.drawable.ic_edit),
@@ -308,110 +303,6 @@ private fun TaskItem(
     }
 }
 
-@Composable
-private fun TasksBottomSheet(
-    taskBottomSheetMode: TaskBottomSheetMode,
-    onDismiss: () -> Unit,
-    onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
-    onSaveTask: () -> Unit,
-    modifier: Modifier = Modifier,
-    taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
-) {
-    ModalBottomSheet(
-        modifier = modifier,
-        sheetState = taskBottomSheetState,
-        onDismissRequest = onDismiss,
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        dragHandle = null
-    ) {
-        when (taskBottomSheetMode) {
-            TaskBottomSheetMode.CREATE -> {
-                TaskBottomSheetCreateContent(
-                    onSaveTask = {
-                        onDismiss()
-                        onSaveTask()
-                    }
-                )
-            }
-
-            TaskBottomSheetMode.VIEW -> {
-                // TODO Task title, Task description (with the ability to scroll to see more),
-                //  at the top right an edit button and at the bottom a delete button.
-                //  Edit button animates out and changes the mode to edit
-            }
-
-            TaskBottomSheetMode.EDIT -> {
-                // TODO Task title textfield with task title, task description textfield with task description,
-                //  A save button at the top rgiht
-            }
-        }
-    }
-}
-
-@Composable
-private fun TaskBottomSheetCreateContent(
-    modifier: Modifier = Modifier,
-    onSaveTask: () -> Unit,
-) {
-    var title by mutableStateOf(TextFieldValue(""))
-    var description by mutableStateOf(TextFieldValue(""))
-
-    Column(modifier = modifier.fillMaxWidth().padding(MaterialTheme.dimensions.small)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(Res.string.task_bottom_sheet_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Button(
-                modifier = Modifier.wrapContentSize(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                shape = RoundedCornerShape(CornerSize(MaterialTheme.dimensions.xxSmall)),
-                contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.xSmall),
-                onClick = {
-                    if (title.text.isNotEmpty() || description.text.isNotEmpty()) {
-                        onSaveTask()
-                    }
-                }
-            ) {
-                Text(
-                    text = stringResource(Res.string.save),
-                    style = MaterialTheme.typography.labelMedium,
-                )
-            }
-        }
-
-        DonezoTextField(
-            value = title,
-            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small),
-            placeholderText = stringResource(Res.string.task_bottom_sheet_title_placeholder),
-            isSingleLine = true,
-            onValueChanged = { newTextFieldValue ->
-                title = newTextFieldValue
-            }
-        )
-
-        DonezoTextField(
-            value = description,
-            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small).height(
-                MaterialTheme.dimensions.custom112
-            ),
-            placeholderText = stringResource(Res.string.task_bottom_sheet_description_placeholder),
-            onValueChanged = { newTextFieldValue ->
-                description = newTextFieldValue
-            },
-            maxLines = 5
-        )
-    }
-}
-
 private fun getDateFormat(): DateTimeFormat<LocalDate> {
     return LocalDate.Format {
         day()
@@ -422,34 +313,10 @@ private fun getDateFormat(): DateTimeFormat<LocalDate> {
     }
 }
 
-private enum class TaskBottomSheetMode {
+internal enum class TaskBottomSheetMode {
     CREATE,
     VIEW,
     EDIT
-}
-
-@Preview
-@Composable
-private fun TaskBottomSheetCreateContentLightPreview() {
-    DonezoTheme {
-        Surface {
-            TaskBottomSheetCreateContent(
-                onSaveTask = {},
-            )
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun TaskBottomSheetCreateContentDarkPreview() {
-    DonezoTheme(darkTheme = true) {
-        Surface {
-            TaskBottomSheetCreateContent(
-                onSaveTask = {},
-            )
-        }
-    }
 }
 
 @Preview
@@ -461,7 +328,7 @@ private fun TaskItemLightPreview() {
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
                 task = previewTasks[0],
                 onMarkedAsDone = {},
-                onEdit = { _, _ -> },
+                onEdit = { },
                 onDelete = {},
                 onClick = {}
             )
@@ -478,7 +345,7 @@ private fun TaskItemDarkPreview() {
                 modifier = Modifier.padding(16.dp),
                 task = previewTasks[0],
                 onMarkedAsDone = {},
-                onEdit = { _, _ -> },
+                onEdit = { },
                 onDelete = {},
                 onClick = {}
             )
