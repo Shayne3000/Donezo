@@ -2,16 +2,19 @@ package com.senijoshua.donezo.presentation.tasks.components.bottomsheet
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.senijoshua.donezo.presentation.tasks.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
@@ -27,7 +30,7 @@ fun TaskBottomSheetViewContent(
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         IconButton(
-            modifier = Modifier.offset(x = MaterialTheme.dimensions.xSmall),
+            modifier = Modifier.align(Alignment.End),
             onClick = onEditClicked
         ) {
             Icon(
@@ -38,14 +41,17 @@ fun TaskBottomSheetViewContent(
         }
 
         Text(
-            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.xxSmall),
+            modifier = Modifier.fillMaxWidth(),
             text = selectedTask.title,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
 
         Text(
-            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.xxSmall),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = MaterialTheme.dimensions.xxSmall)
+                .verticalScroll(rememberScrollState()),
             text = selectedTask.description,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodySmall
@@ -55,11 +61,12 @@ fun TaskBottomSheetViewContent(
 
 @Preview
 @Composable
-private fun TaskBottomSheetCreateContentLightPreview() {
+private fun TaskBottomSheetViewContentLightPreview() {
     DonezoTheme {
         Surface {
-            TaskBottomSheetCreateContent(
-                onSaveTask = {},
+            TaskBottomSheetViewContent(
+                selectedTask = previewTasks[0],
+                onEditClicked = {},
             )
         }
     }
@@ -67,11 +74,12 @@ private fun TaskBottomSheetCreateContentLightPreview() {
 
 @Preview
 @Composable
-private fun TaskBottomSheetCreateContentDarkPreview() {
+private fun TaskBottomSheetViewContentDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
-            TaskBottomSheetCreateContent(
-                onSaveTask = {},
+            TaskBottomSheetViewContent(
+                selectedTask = previewTasks[0],
+                onEditClicked = {},
             )
         }
     }

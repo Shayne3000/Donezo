@@ -9,7 +9,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.senijoshua.donezo.presentation.tasks.TaskBottomSheetMode
-import com.senijoshua.donezo.presentation.tasks.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
 import com.senijoshua.donezo.presentation.theme.dimensions
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -50,6 +50,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
+import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
