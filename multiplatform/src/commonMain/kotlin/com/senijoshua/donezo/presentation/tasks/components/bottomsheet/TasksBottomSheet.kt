@@ -1,16 +1,36 @@
 package com.senijoshua.donezo.presentation.tasks.components.bottomsheet
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
+import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.tasks.TaskBottomSheetMode
 import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
 import com.senijoshua.donezo.presentation.theme.dimensions
+import donezo.multiplatform.generated.resources.Res
+import donezo.multiplatform.generated.resources.description_placeholder
+import donezo.multiplatform.generated.resources.save
+import donezo.multiplatform.generated.resources.title_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,10 +39,15 @@ internal fun TasksBottomSheet(
     taskBottomSheetMode: TaskBottomSheetMode,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
-    onSaveTask: () -> Unit,
+    onSaveTask: (Pair<String, String>) -> Unit,
     modifier: Modifier = Modifier,
     taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
+    val saveAndDismiss: (Pair<String, String>) -> Unit = { task ->
+        onDismiss()
+        onSaveTask(task)
+    }
+
     ModalBottomSheet(
         modifier = modifier,
         sheetState = taskBottomSheetState,
@@ -32,19 +57,13 @@ internal fun TasksBottomSheet(
     ) {
         when (taskBottomSheetMode) {
             TaskBottomSheetMode.CREATE -> {
-                TaskBottomSheetCreateContent(
+                TasksBottomSheetCreateContent(
                     modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                    onSaveTask = {
-                        onDismiss()
-                        onSaveTask()
-                    }
+                    onSaveTask = saveAndDismiss
                 )
             }
 
             TaskBottomSheetMode.VIEW -> {
-                // TODO Task title, Task description (with the ability to scroll to see more),
-                //  at the top right an edit button and at the bottom a delete button.
-                //  Edit button animates out and changes the mode to edit
                 selectedTask?.let { task ->
                     TaskBottomSheetViewContent(
                         selectedTask = task,
@@ -56,9 +75,79 @@ internal fun TasksBottomSheet(
             }
 
             TaskBottomSheetMode.EDIT -> {
-                // TODO Task title textfield with task title, task description textfield with task description,
-                //  A save button at the top rgiht
+                selectedTask?.let {
+                    TasksBottomSheetEditContent(
+                        selectedTask = selectedTask,
+                        onSaveTask = saveAndDismiss
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+internal fun TaskBottomSheetEditableContent(
+    contentTitle: String,
+    title: TextFieldValue,
+    description: TextFieldValue,
+    onSaveTask: (Pair<String, String>) -> Unit,
+    onTitleChanged: (TextFieldValue) -> Unit,
+    onDescriptionChanged: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = contentTitle,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Button(
+                modifier = Modifier.wrapContentSize(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                shape = RoundedCornerShape(CornerSize(MaterialTheme.dimensions.xxSmall)),
+                contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.xSmall),
+                onClick = {
+                    if (title.text.isNotEmpty() || description.text.isNotEmpty()) {
+                        onSaveTask(Pair(title.text, description.text))
+                    }
+                }
+            ) {
+                Text(
+                    text = stringResource(Res.string.save),
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            }
+        }
+
+        DonezoTextField(
+            value = title,
+            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small),
+            placeholderText = stringResource(Res.string.title_placeholder),
+            isSingleLine = true,
+            onValueChanged = { newTextFieldValue ->
+                onTitleChanged(newTextFieldValue)
+            }
+        )
+
+        DonezoTextField(
+            value = description,
+            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small).height(
+                MaterialTheme.dimensions.custom112
+            ),
+            placeholderText = stringResource(Res.string.description_placeholder),
+            onValueChanged = { newTextFieldValue ->
+                onDescriptionChanged(newTextFieldValue)
+            },
+            maxLines = 5
+        )
     }
 }

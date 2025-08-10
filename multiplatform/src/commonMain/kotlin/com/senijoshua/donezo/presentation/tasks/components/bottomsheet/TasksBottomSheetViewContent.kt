@@ -24,9 +24,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TaskBottomSheetViewContent(
-    modifier: Modifier = Modifier,
     selectedTask: TodoTasks,
     onEditClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         IconButton(
@@ -54,7 +54,8 @@ fun TaskBottomSheetViewContent(
                 .verticalScroll(rememberScrollState()),
             text = selectedTask.description,
             color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 5
         )
     }
 }

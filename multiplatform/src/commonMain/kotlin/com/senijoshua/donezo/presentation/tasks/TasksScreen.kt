@@ -78,11 +78,17 @@ import org.koin.compose.viewmodel.koinViewModel
 fun TasksScreen(
     viewModel: TasksViewModel = koinViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = TasksUIState.Loading)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = stringResource(Res.string.generic_error_message)
 
-    TasksContent(uiState = uiState, snackBarHostState = snackBarHostState)
+    TasksContent(
+        uiState = uiState,
+        snackBarHostState = snackBarHostState,
+        onSaveTask = { details ->
+            viewModel.saveTask(details)
+        }
+    )
 
     LaunchedEffect(Unit) {
         viewModel.uiEvent.collect { events ->
@@ -100,6 +106,9 @@ fun TasksScreen(
 private fun TasksContent(
     uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
+    onSaveTask: (Triple<String, String, String>) -> Unit,
+    onDeleteTask: () -> Unit,
+    onTaskCompleted: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showTaskDialog by mutableStateOf(false)
@@ -162,17 +171,21 @@ private fun TasksContent(
                                         .animateItem(),
                                     task = task,
                                     onMarkedAsDone = {
-                                        // animate item away
+                                        // TODO animate item away
+                                        onTaskCompleted()
                                     },
                                     onEdit = { task ->
                                         taskBottomSheetMode = TaskBottomSheetMode.EDIT
+                                        selectedTask = task
                                         showTaskDialog = true
                                     },
                                     onDelete = {
-                                        // TODO Show delete confirmation dialog
+                                        // TODO Show delete confirmation dialog and do the below if confirm
+                                        onDeleteTask()
                                     },
                                     onClick = {
                                         taskBottomSheetMode = TaskBottomSheetMode.VIEW
+                                        selectedTask = task
                                         showTaskDialog = true
                                     }
                                 )
@@ -191,7 +204,14 @@ private fun TasksContent(
                 onChangeBottomSheetMode = { newMode ->
                     taskBottomSheetMode = newMode
                 },
-                onSaveTask = {
+                onSaveTask = { taskDetails ->
+                    onSaveTask(
+                        Triple(
+                            selectedTask?.id.orEmpty(),
+                            taskDetails.first,
+                            taskDetails.second
+                        )
+                    )
                 },
                 onDismiss = {
                     showTaskDialog = false
@@ -361,6 +381,7 @@ private fun TasksScreenLightPreview() {
     DonezoTheme {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
+            onSaveTask = {},
             snackBarHostState = remember { SnackbarHostState() }
         )
     }
@@ -372,6 +393,7 @@ private fun TasksScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
+            onSaveTask = {},
             snackBarHostState = remember { SnackbarHostState() }
         )
     }

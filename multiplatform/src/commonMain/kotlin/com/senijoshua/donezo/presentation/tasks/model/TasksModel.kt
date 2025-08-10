@@ -16,6 +16,15 @@ data class TodoTasks(
     val createdTime: LocalDate,
 )
 
+/**
+ * Model for encapsulating update data for a [TodoTasks]
+ */
+internal data class TaskUpdate(
+    val id: String,
+    val title: String,
+    val description: String,
+)
+
 @OptIn(ExperimentalTime::class)
 internal val previewTasks = List(10) { index ->
     TodoTasks(
