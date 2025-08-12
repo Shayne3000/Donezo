@@ -4,6 +4,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
@@ -19,8 +20,8 @@ internal fun TasksBottomSheetCreateContent(
     modifier: Modifier = Modifier,
     onSaveTask: (TaskUpdateDetails) -> Unit,
 ) {
-    var title by mutableStateOf(TextFieldValue(""))
-    var description by mutableStateOf(TextFieldValue(""))
+    var title by remember { mutableStateOf(TextFieldValue("")) }
+    var description by remember { mutableStateOf(TextFieldValue("")) }
 
     TaskBottomSheetEditableContent(
         modifier = modifier,

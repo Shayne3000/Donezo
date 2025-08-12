@@ -39,7 +39,6 @@ fun DonezoTextField(
         singleLine = isSingleLine,
         placeholder = {
             Text(
-                modifier = Modifier.padding(top = MaterialTheme.dimensions.xxSmall),
                 text = placeholderText,
                 style = MaterialTheme.typography.bodySmall,
             )

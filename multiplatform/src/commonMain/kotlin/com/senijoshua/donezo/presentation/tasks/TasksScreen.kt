@@ -42,6 +42,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,6 +66,7 @@ import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
 import donezo.multiplatform.generated.resources.tasks_tab_title
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeFormat
@@ -116,6 +118,7 @@ private fun TasksContent(
 ) {
     var showTaskDialog by mutableStateOf(false)
     val sheetState = rememberModalBottomSheetState()
+    val coroutineScope = rememberCoroutineScope()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
     var selectedTask: TodoTask? = null
 
@@ -217,7 +220,11 @@ private fun TasksContent(
                     )
                 },
                 onDismiss = {
-                    showTaskDialog = false
+                    coroutineScope.launch {
+                        sheetState.hide()
+                    }.invokeOnCompletion {
+                        showTaskDialog = false
+                    }
                 }
             )
         }

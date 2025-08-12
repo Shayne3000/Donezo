@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +41,7 @@ internal fun TasksBottomSheet(
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
     onSaveTask: (TaskUpdateDetails) -> Unit,
     modifier: Modifier = Modifier,
-    taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
+    taskBottomSheetState: SheetState
 ) {
     val saveAndDismiss: (TaskUpdateDetails) -> Unit = { task ->
         onDismiss()
