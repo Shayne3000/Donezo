@@ -24,7 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.tasks.TaskBottomSheetMode
-import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.tasks.model.TodoTask
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.description_placeholder
@@ -35,15 +36,15 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TasksBottomSheet(
-    selectedTask: TodoTasks?,
+    selectedTask: TodoTask?,
     taskBottomSheetMode: TaskBottomSheetMode,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
-    onSaveTask: (Pair<String, String>) -> Unit,
+    onSaveTask: (TaskUpdateDetails) -> Unit,
     modifier: Modifier = Modifier,
     taskBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
-    val saveAndDismiss: (Pair<String, String>) -> Unit = { task ->
+    val saveAndDismiss: (TaskUpdateDetails) -> Unit = { task ->
         onDismiss()
         onSaveTask(task)
     }
@@ -75,9 +76,9 @@ internal fun TasksBottomSheet(
             }
 
             TaskBottomSheetMode.EDIT -> {
-                selectedTask?.let {
+                selectedTask?.let { task ->
                     TasksBottomSheetEditContent(
-                        selectedTask = selectedTask,
+                        selectedTask = task,
                         onSaveTask = saveAndDismiss
                     )
                 }

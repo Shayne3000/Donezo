@@ -50,7 +50,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
-import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.tasks.model.TodoTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -87,7 +88,9 @@ fun TasksScreen(
         snackBarHostState = snackBarHostState,
         onSaveTask = { details ->
             viewModel.saveTask(details)
-        }
+        },
+        onDeleteTask = {},
+        onTaskCompleted = {}
     )
 
     LaunchedEffect(Unit) {
@@ -106,7 +109,7 @@ fun TasksScreen(
 private fun TasksContent(
     uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
-    onSaveTask: (Triple<String, String, String>) -> Unit,
+    onSaveTask: (TaskUpdateDetails) -> Unit,
     onDeleteTask: () -> Unit,
     onTaskCompleted: () -> Unit,
     modifier: Modifier = Modifier
@@ -114,7 +117,7 @@ private fun TasksContent(
     var showTaskDialog by mutableStateOf(false)
     val sheetState = rememberModalBottomSheetState()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
-    var selectedTask: TodoTasks? = null
+    var selectedTask: TodoTask? = null
 
     Scaffold(
         floatingActionButton = {
@@ -204,12 +207,12 @@ private fun TasksContent(
                 onChangeBottomSheetMode = { newMode ->
                     taskBottomSheetMode = newMode
                 },
-                onSaveTask = { taskDetails ->
+                onSaveTask = { taskUpdate ->
                     onSaveTask(
-                        Triple(
-                            selectedTask?.id.orEmpty(),
-                            taskDetails.first,
-                            taskDetails.second
+                        TaskUpdateDetails(
+                            taskUpdate.id,
+                            taskUpdate.title,
+                            taskUpdate.description
                         )
                     )
                 },
@@ -223,9 +226,9 @@ private fun TasksContent(
 
 @Composable
 private fun TaskItem(
-    task: TodoTasks,
+    task: TodoTask,
     onMarkedAsDone: () -> Unit,
-    onEdit: (TodoTasks) -> Unit,
+    onEdit: (TodoTask) -> Unit,
     onDelete: () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -382,7 +385,9 @@ private fun TasksScreenLightPreview() {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
             onSaveTask = {},
-            snackBarHostState = remember { SnackbarHostState() }
+            snackBarHostState = remember { SnackbarHostState() },
+            onDeleteTask = {},
+            onTaskCompleted = {}
         )
     }
 }
@@ -394,7 +399,9 @@ private fun TasksScreenDarkPreview() {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
             onSaveTask = {},
-            snackBarHostState = remember { SnackbarHostState() }
+            snackBarHostState = remember { SnackbarHostState() },
+            onDeleteTask = {},
+            onTaskCompleted = {}
         )
     }
 }

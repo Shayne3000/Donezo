@@ -2,7 +2,8 @@ package com.senijoshua.donezo.presentation.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.senijoshua.donezo.presentation.tasks.model.TodoTasks
+import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.tasks.model.TodoTask
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,7 +37,7 @@ class TasksViewModel : ViewModel() {
     )
     // Create, Update, Delete, and Mark Task as Completed operations
 
-    fun saveTask(taskDetails: Triple<String, String, String>) {
+    fun saveTask(taskUpdateDetails: TaskUpdateDetails) {
         // TODO Ideally we should sanitize the input to prevent
         //  security risks like SQL injection.
         viewModelScope.launch {
@@ -49,7 +50,7 @@ class TasksViewModel : ViewModel() {
  * Representation of the state of the UI at any instant in time.
  */
 sealed interface TasksUIState {
-    data class Success(val tasks: List<TodoTasks>) : TasksUIState
+    data class Success(val tasks: List<TodoTask>) : TasksUIState
     data object Loading : TasksUIState
 }
 
