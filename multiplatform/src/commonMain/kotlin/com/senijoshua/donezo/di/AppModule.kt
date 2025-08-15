@@ -4,7 +4,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val multiplatformModule = module {
-    includes(presentationModule, persistenceModule, networkingModule, coroutineModule)
+    includes(presentationModule, persistenceModule, dataModule, networkingModule, coroutineModule)
 }
 
 expect val platformModule: Module

@@ -39,13 +39,13 @@ internal fun TasksBottomSheet(
     taskBottomSheetMode: TaskBottomSheetMode,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,
-    onSaveTask: (TaskUpdateDetails) -> Unit,
+    onSaveTask: (TaskUpdateDetails, isNewTask: Boolean) -> Unit,
     modifier: Modifier = Modifier,
     taskBottomSheetState: SheetState
 ) {
-    val saveAndDismiss: (TaskUpdateDetails) -> Unit = { task ->
+    val saveAndDismiss: (TaskUpdateDetails, isNewTask: Boolean) -> Unit = { task, isNewTask ->
         onDismiss()
-        onSaveTask(task)
+        onSaveTask(task, isNewTask)
     }
 
     ModalBottomSheet(

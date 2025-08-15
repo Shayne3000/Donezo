@@ -18,7 +18,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 internal fun TasksBottomSheetCreateContent(
     modifier: Modifier = Modifier,
-    onSaveTask: (TaskUpdateDetails) -> Unit,
+    onSaveTask: (TaskUpdateDetails, isNewTask: Boolean) -> Unit,
 ) {
     var title by remember { mutableStateOf(TextFieldValue("")) }
     var description by remember { mutableStateOf(TextFieldValue("")) }
@@ -35,7 +35,7 @@ internal fun TasksBottomSheetCreateContent(
             description = newTextFieldValue
         },
         onSaveTask = { (title, description) ->
-            onSaveTask(TaskUpdateDetails(id = "", title = title, description = description))
+            onSaveTask(TaskUpdateDetails(id = "", title = title, description = description), true)
         }
     )
 }
@@ -46,7 +46,7 @@ private fun TasksBottomSheetCreateContentLightPreview() {
     DonezoTheme {
         Surface {
             TasksBottomSheetCreateContent(
-                onSaveTask = {},
+                onSaveTask = {_,_ ->},
             )
         }
     }
@@ -58,7 +58,7 @@ private fun TasksBottomSheetCreateContentDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
             TasksBottomSheetCreateContent(
-                onSaveTask = {},
+                onSaveTask = {_,_ ->},
             )
         }
     }

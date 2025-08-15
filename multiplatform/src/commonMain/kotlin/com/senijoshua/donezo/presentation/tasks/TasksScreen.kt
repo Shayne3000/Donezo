@@ -88,8 +88,8 @@ fun TasksScreen(
     TasksContent(
         uiState = uiState,
         snackBarHostState = snackBarHostState,
-        onSaveTask = { details ->
-            viewModel.saveTask(details)
+        onSaveTask = { details, isNewTask ->
+            viewModel.saveTask(details, isNewTask)
         },
         onDeleteTask = {},
         onTaskCompleted = {}
@@ -111,7 +111,7 @@ fun TasksScreen(
 private fun TasksContent(
     uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
-    onSaveTask: (TaskUpdateDetails) -> Unit,
+    onSaveTask: (TaskUpdateDetails, Boolean) -> Unit,
     onDeleteTask: () -> Unit,
     onTaskCompleted: () -> Unit,
     modifier: Modifier = Modifier
@@ -210,13 +210,14 @@ private fun TasksContent(
                 onChangeBottomSheetMode = { newMode ->
                     taskBottomSheetMode = newMode
                 },
-                onSaveTask = { taskUpdate ->
+                onSaveTask = { taskUpdate, isNewTask ->
                     onSaveTask(
                         TaskUpdateDetails(
                             taskUpdate.id,
                             taskUpdate.title,
                             taskUpdate.description
-                        )
+                        ),
+                        isNewTask
                     )
                 },
                 onDismiss = {
@@ -391,7 +392,7 @@ private fun TasksScreenLightPreview() {
     DonezoTheme {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
-            onSaveTask = {},
+            onSaveTask = {_,_ ->},
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},
             onTaskCompleted = {}
@@ -405,7 +406,7 @@ private fun TasksScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
-            onSaveTask = {},
+            onSaveTask = {_,_ ->},
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},
             onTaskCompleted = {}

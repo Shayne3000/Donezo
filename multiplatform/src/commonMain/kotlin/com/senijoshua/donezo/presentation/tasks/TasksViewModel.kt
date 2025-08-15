@@ -2,6 +2,7 @@ package com.senijoshua.donezo.presentation.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.senijoshua.donezo.data.repository.TasksRepository
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.tasks.model.TodoTask
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,10 +13,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class TasksViewModel : ViewModel() {
-    // Setup state holder flow for ui state
-
-    // Setup shared flow for one-time UI events
+class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<TasksUIEvent>(
         replay = 0,
         extraBufferCapacity = 1 // to avoid dropping events when no collector is immediately ready.
@@ -23,6 +21,7 @@ class TasksViewModel : ViewModel() {
     val uiEvent: SharedFlow<TasksUIEvent> = _uiEvent
 
     // Setup cold flow to get Tasks from the DB
+    // that gets converted to hotflow
     val uiState: StateFlow<TasksUIState> = flow {
         try {
             // TODO Call get tasks from repository
@@ -37,7 +36,7 @@ class TasksViewModel : ViewModel() {
     )
     // Create, Update, Delete, and Mark Task as Completed operations
 
-    fun saveTask(taskUpdateDetails: TaskUpdateDetails) {
+    fun saveTask(taskUpdateDetails: TaskUpdateDetails, isNewTask: Boolean) {
         // TODO Ideally we should sanitize the input to prevent
         //  security risks like SQL injection.
         viewModelScope.launch {

@@ -23,7 +23,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 internal fun TasksBottomSheetEditContent(
     selectedTask: TodoTask,
-    onSaveTask: (TaskUpdateDetails) -> Unit,
+    onSaveTask: (TaskUpdateDetails, isNewTask: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var title by remember { mutableStateOf(TextFieldValue(selectedTask.title)) }
@@ -41,7 +41,7 @@ internal fun TasksBottomSheetEditContent(
             description = newTextFieldValue
         },
         onSaveTask = { (title, description) ->
-            onSaveTask(TaskUpdateDetails(id = selectedTask.id, title = title, description = description))
+            onSaveTask(TaskUpdateDetails(id = selectedTask.id, title = title, description = description), false)
         }
     )
 }
@@ -54,7 +54,7 @@ private fun TaskBottomSheetEditContentLightPreview() {
             TasksBottomSheetEditContent(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
                 selectedTask = previewTasks[0],
-                onSaveTask = {},
+                onSaveTask = {_,_ ->},
             )
         }
     }
@@ -68,7 +68,7 @@ private fun TaskBottomSheetEditContentDarkPreview() {
             TasksBottomSheetEditContent(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
                 selectedTask = previewTasks[0],
-                onSaveTask = {},
+                onSaveTask = {_,_ ->},
             )
         }
     }
