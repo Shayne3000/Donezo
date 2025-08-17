@@ -26,14 +26,3 @@ abstract class DonezoDatabase : RoomDatabase() {
 expect object AppDatabaseConstructor : RoomDatabaseConstructor<DonezoDatabase> {
     override fun initialize(): DonezoDatabase
 }
-
-fun getRoomDatabase(
-    builder: RoomDatabase.Builder<DonezoDatabase>,
-    coroutineDispatcher: CoroutineDispatcher
-): DonezoDatabase {
-    return builder
-        .addMigrations()
-        .setDriver(BundledSQLiteDriver())
-        .setQueryCoroutineContext(coroutineDispatcher)
-        .build()
-}

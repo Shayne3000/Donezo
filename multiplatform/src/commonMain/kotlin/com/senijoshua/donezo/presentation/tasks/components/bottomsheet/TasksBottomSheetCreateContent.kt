@@ -35,7 +35,7 @@ internal fun TasksBottomSheetCreateContent(
             description = newTextFieldValue
         },
         onSaveTask = { (title, description) ->
-            onSaveTask(TaskUpdateDetails(id = "", title = title, description = description), true)
+            onSaveTask(TaskUpdateDetails(id = -1, title = title, description = description), true)
         }
     )
 }

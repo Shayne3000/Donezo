@@ -10,7 +10,7 @@ import kotlin.time.ExperimentalTime
  * Presentation-layer representation of a Task type
  */
 data class TodoTask(
-    val id: String,
+    val id: Int,
     val title: String,
     val description: String,
     val createdTime: LocalDate,
@@ -20,7 +20,7 @@ data class TodoTask(
  * Model for encapsulating update data for a [TodoTask]
  */
 data class TaskUpdateDetails(
-    val id: String,
+    val id: Int,
     val title: String,
     val description: String,
 )
@@ -28,7 +28,7 @@ data class TaskUpdateDetails(
 @OptIn(ExperimentalTime::class)
 internal val previewTasks = List(10) { index ->
     TodoTask(
-        id = index.toString(),
+        id = index,
         title = "Check the task title $index times",
         description = "Check the task description $index times and ensure it's correct.",
         createdTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date

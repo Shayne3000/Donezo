@@ -1,9 +1,12 @@
 package com.senijoshua.donezo.data.repository
 
 import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
-class TaskRepositoryImpl : TasksRepository {
+class TaskRepositoryImpl(
+    private val ioDispatcher: CoroutineDispatcher,
+) : TasksRepository {
     override fun createTask() {
         TODO("Not yet implemented")
     }
