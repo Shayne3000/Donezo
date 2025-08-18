@@ -4,6 +4,7 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
+import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.senijoshua.donezo.data.local.character.CharacterDao
 import com.senijoshua.donezo.data.local.character.CharacterEntity
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 @Database(entities = [TaskEntity::class, CharacterEntity::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
+@TypeConverters(DateConverter::class)
 abstract class DonezoDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
     abstract fun characterDao(): CharacterDao
