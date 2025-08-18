@@ -24,7 +24,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.tasks.TaskBottomSheetMode
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.description_placeholder
@@ -35,7 +35,7 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TasksBottomSheet(
-    selectedTask: TodoTask?,
+    selectedTask: PresentationTask?,
     taskBottomSheetMode: TaskBottomSheetMode,
     onDismiss: () -> Unit,
     onChangeBottomSheetMode: (TaskBottomSheetMode) -> Unit,

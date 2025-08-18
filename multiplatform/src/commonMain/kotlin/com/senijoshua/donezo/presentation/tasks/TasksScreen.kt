@@ -51,8 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -120,7 +120,7 @@ private fun TasksContent(
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
-    var selectedTask: TodoTask? = null
+    var selectedTask: PresentationTask? = null
 
     Scaffold(
         floatingActionButton = {
@@ -234,9 +234,9 @@ private fun TasksContent(
 
 @Composable
 private fun TaskItem(
-    task: TodoTask,
+    task: PresentationTask,
     onMarkedAsDone: () -> Unit,
-    onEdit: (TodoTask) -> Unit,
+    onEdit: (PresentationTask) -> Unit,
     onDelete: () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

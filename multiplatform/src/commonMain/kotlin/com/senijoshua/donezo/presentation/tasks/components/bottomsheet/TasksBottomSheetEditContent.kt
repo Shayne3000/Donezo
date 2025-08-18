@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -22,7 +22,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun TasksBottomSheetEditContent(
-    selectedTask: TodoTask,
+    selectedTask: PresentationTask,
     onSaveTask: (TaskUpdateDetails, isNewTask: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senijoshua.donezo.data.repository.TasksRepository
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -49,7 +49,7 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
  * Representation of the state of the UI at any instant in time.
  */
 sealed interface TasksUIState {
-    data class Success(val tasks: List<TodoTask>) : TasksUIState
+    data class Success(val tasks: List<PresentationTask>) : TasksUIState
     data object Loading : TasksUIState
 }
 

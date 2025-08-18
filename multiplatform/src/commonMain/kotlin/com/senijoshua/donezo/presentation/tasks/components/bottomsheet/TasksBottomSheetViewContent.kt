@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -24,7 +24,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TaskBottomSheetViewContent(
-    selectedTask: TodoTask,
+    selectedTask: PresentationTask,
     onEditClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {

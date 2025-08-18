@@ -1,6 +1,6 @@
 package com.senijoshua.donezo.data.repository
 
-import com.senijoshua.donezo.presentation.tasks.model.TodoTask
+import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
@@ -11,7 +11,7 @@ class TaskRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTasks(): Flow<Result<TodoTask>> {
+    override suspend fun getTasks(): Flow<Result<PresentationTask>> {
         TODO("Not yet implemented")
     }
 
@@ -19,12 +19,12 @@ class TaskRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getCompletedTasks(): Flow<Result<TodoTask>> {
+    override suspend fun getCompletedTasks(): Flow<Result<PresentationTask>> {
         TODO("Not yet implemented")
     }
 
     override fun updateTask(
-        id: String,
+        id: Int,
         title: String,
         description: String
     ) {

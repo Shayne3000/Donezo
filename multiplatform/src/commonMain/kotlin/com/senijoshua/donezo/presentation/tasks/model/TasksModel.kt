@@ -2,14 +2,14 @@ package com.senijoshua.donezo.presentation.tasks.model
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.todayIn
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 /**
  * Presentation-layer representation of a Task type
  */
-data class TodoTask(
+data class PresentationTask(
     val id: Int,
     val title: String,
     val description: String,
@@ -17,7 +17,7 @@ data class TodoTask(
 )
 
 /**
- * Model for encapsulating update data for a [TodoTask]
+ * Model for encapsulating update data for a [PresentationTask]
  */
 data class TaskUpdateDetails(
     val id: Int,
@@ -27,10 +27,10 @@ data class TaskUpdateDetails(
 
 @OptIn(ExperimentalTime::class)
 internal val previewTasks = List(10) { index ->
-    TodoTask(
+    PresentationTask(
         id = index,
         title = "Check the task title $index times",
         description = "Check the task description $index times and ensure it's correct.",
-        createdTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        createdTime = Clock.System.todayIn(TimeZone.currentSystemDefault())
     )
 }
