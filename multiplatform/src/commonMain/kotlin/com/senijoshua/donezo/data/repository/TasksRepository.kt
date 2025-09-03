@@ -4,10 +4,10 @@ import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import kotlinx.coroutines.flow.Flow
 
 interface TasksRepository {
-    fun createTask()
-    suspend fun getTasks(): Flow<Result<PresentationTask>>
+    suspend fun createTask(title: String, description: String)
+    fun getTasks(): Flow<Result<List<PresentationTask>>>
     fun markTaskAsComplete(taskId: String)
-    suspend fun getCompletedTasks(): Flow<Result<PresentationTask>>
+    fun getCompletedTasks(): Flow<Result<List<PresentationTask>>>
     fun updateTask(id: Int, title: String, description: String)
-    fun deleteTask()
+    fun deleteTask(id: Int)
 }
