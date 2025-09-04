@@ -38,7 +38,7 @@ class TaskRepositoryImpl(
             .asResult()
     }
 
-    override suspend fun toggleTaskCompleteStatus(taskId: String) {
+    override suspend fun toggleTaskCompleteStatus(taskId: Int) {
         withContext(ioDispatcher) {
             local.toggleTaskCompleteStatus(taskId)
         }

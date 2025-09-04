@@ -3,12 +3,13 @@ package com.senijoshua.donezo.presentation.tasks
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senijoshua.donezo.data.repository.TasksRepository
-import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -20,14 +21,19 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     )
     val uiEvent: SharedFlow<TasksUIEvent> = _uiEvent
 
-    // Setup cold flow to get Tasks from the DB
-    // that gets converted to hotflow
     val uiState: StateFlow<TasksUIState> = flow {
-        try {
-            // TODO Call get tasks from repository
-            emit(TasksUIState.Success(tasks = emptyList()))
-        } catch (e: Exception) {
-            _uiEvent.emit(TasksUIEvent.Error(e.message))
+        repository.getTasks().collectLatest { result ->
+            when {
+                result.isSuccess -> {
+                    val tasks = result.getOrNull()!!
+                    emit(TasksUIState.Success(tasks = tasks))
+                }
+
+                result.isFailure -> {
+                    val error = result.exceptionOrNull()!!
+                    _uiEvent.emit(TasksUIEvent.Error(error.message))
+                }
+            }
         }
     }.stateIn(
         viewModelScope,
@@ -40,7 +46,23 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
         // TODO Ideally we should sanitize the input to prevent
         //  security risks like SQL injection.
         viewModelScope.launch {
+            if (isNewTask) {
+                repository.createTask(title = taskUpdateDetails.title, description = taskUpdateDetails.description)
+            } else {
+                repository.updateTask(id = taskUpdateDetails.id, title = taskUpdateDetails.title, description = taskUpdateDetails.description)
+            }
+        }
+    }
 
+    fun markTaskAsCompleted(taskId: Int) {
+        viewModelScope.launch {
+            repository.toggleTaskCompleteStatus(taskId)
+        }
+    }
+
+    fun deleteTask(taskId: Int) {
+        viewModelScope.launch {
+            repository.deleteTask(taskId)
         }
     }
 }

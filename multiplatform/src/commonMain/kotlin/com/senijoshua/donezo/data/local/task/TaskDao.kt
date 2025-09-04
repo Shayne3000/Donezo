@@ -10,7 +10,7 @@ interface TaskDao {
     @Insert
     suspend fun insertTask(task: TaskEntity)
 
-    @Query("SELECT * FROM tasks")
+    @Query("SELECT * FROM tasks WHERE isComplete = 0")
     fun getTasks(): Flow<List<TaskEntity>> // Room executes Flow queries on a background thread automatically
 
     @Query("SELECT * FROM tasks WHERE isComplete = 1")
@@ -20,7 +20,7 @@ interface TaskDao {
     suspend fun updateTask(id: Int, title: String, description: String)
 
     @Query("UPDATE tasks SET isComplete = CASE WHEN isComplete = 1 THEN 0 ELSE 1 END WHERE id = :taskId")
-    suspend fun toggleTaskCompleteStatus(taskId: String)
+    suspend fun toggleTaskCompleteStatus(taskId: Int)
 
     @Query("DELETE FROM tasks WHERE id = :taskId")
     suspend fun deleteTask(taskId: Int)

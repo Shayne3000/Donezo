@@ -91,8 +91,12 @@ fun TasksScreen(
         onSaveTask = { details, isNewTask ->
             viewModel.saveTask(details, isNewTask)
         },
-        onDeleteTask = {},
-        onTaskCompleted = {}
+        onTaskCompleted = { taskId ->
+            viewModel.markTaskAsCompleted(taskId)
+        },
+        onDeleteTask = { taskId ->
+            viewModel.deleteTask(taskId)
+        }
     )
 
     LaunchedEffect(Unit) {
@@ -112,8 +116,8 @@ private fun TasksContent(
     uiState: TasksUIState,
     snackBarHostState: SnackbarHostState,
     onSaveTask: (TaskUpdateDetails, Boolean) -> Unit,
-    onDeleteTask: () -> Unit,
-    onTaskCompleted: () -> Unit,
+    onDeleteTask: (Int) -> Unit,
+    onTaskCompleted: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showTaskDialog by mutableStateOf(false)
@@ -177,8 +181,8 @@ private fun TasksContent(
                                         .animateItem(),
                                     task = task,
                                     onMarkedAsDone = {
-                                        // TODO animate item away
-                                        onTaskCompleted()
+                                        // TODO Validate that the item animates away
+                                        onTaskCompleted(task.id)
                                     },
                                     onEdit = { task ->
                                         taskBottomSheetMode = TaskBottomSheetMode.EDIT
@@ -186,8 +190,9 @@ private fun TasksContent(
                                         showTaskDialog = true
                                     },
                                     onDelete = {
-                                        // TODO Show delete confirmation dialog and do the below if confirm
-                                        onDeleteTask()
+                                        // TODO Consider showing a delete confirmation dialog and
+                                        //  do the below if confirmed.
+                                        onDeleteTask(task.id)
                                     },
                                     onClick = {
                                         taskBottomSheetMode = TaskBottomSheetMode.VIEW
