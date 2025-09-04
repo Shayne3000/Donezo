@@ -28,7 +28,7 @@ class TaskRepositoryImpl(
                 isComplete = false
             )
 
-            local.insertOrUpdateTask(task)
+            local.insertTask(task)
         }
     }
 
@@ -38,8 +38,10 @@ class TaskRepositoryImpl(
             .asResult()
     }
 
-    override fun markTaskAsComplete(taskId: String) {
-        TODO("Not yet implemented")
+    override suspend fun toggleTaskCompleteStatus(taskId: String) {
+        withContext(ioDispatcher) {
+            local.toggleTaskCompleteStatus(taskId)
+        }
     }
 
     override fun getCompletedTasks(): Flow<Result<List<PresentationTask>>> {
@@ -48,15 +50,19 @@ class TaskRepositoryImpl(
             .asResult()
     }
 
-    override fun updateTask(
+    override suspend fun updateTask(
         id: Int,
         title: String,
         description: String
     ) {
-        TODO("Not yet implemented")
+        withContext(ioDispatcher) {
+            local.updateTask(id, title, description)
+        }
     }
 
-    override fun deleteTask(id: Int) {
-        TODO("Not yet implemented")
+    override suspend fun deleteTask(id: Int) {
+        withContext(ioDispatcher) {
+            local.deleteTask(id)
+        }
     }
 }
