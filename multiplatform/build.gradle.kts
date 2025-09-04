@@ -25,7 +25,7 @@ kotlin { // Config block for the Compose multiplatform project
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
-        // configuration for the resulting framework binary that will be generated from the
+        // configuration for the resulting iOS framework binary that will be generated from the
         // KMP shared module for when one wants to integrate/import said shared module into an iOS project.
         it.binaries.framework {
             baseName = "Multiplatform" // name of the resulting framework binary to be imported into an iOS project
@@ -146,7 +146,7 @@ dependencies {
 
 android { // build configuration block for the android target of the multiplatform module
     namespace = "com.senijoshua.donezo"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         minSdk = 24
     }

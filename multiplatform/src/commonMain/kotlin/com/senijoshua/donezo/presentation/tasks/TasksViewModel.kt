@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -21,25 +21,34 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     )
     val uiEvent: SharedFlow<TasksUIEvent> = _uiEvent
 
-    val uiState: StateFlow<TasksUIState> = flow {
-        repository.getTasks().collectLatest { result ->
-            when {
-                result.isSuccess -> {
-                    val tasks = result.getOrNull()!!
-                    emit(TasksUIState.Success(tasks = tasks))
-                }
-
-                result.isFailure -> {
-                    val error = result.exceptionOrNull()!!
-                    _uiEvent.emit(TasksUIEvent.Error(error.message))
-                }
+    // Idiomatic way to kick-off the streaming (or observance) of UI state changes
+    // when the UI initialises collection and re-collection.
+   // When re-collected, Room just delivers the latest cached snapshot,
+    // not a fresh query unless data actually changed.
+    val uiState: StateFlow<TasksUIState> = repository.getTasks()
+        .onEach { result ->
+            if (result.isFailure) {
+                // Emit an error UI event as a side-effect of collecting this "getTasks" flow
+                // from within the viewModelScope coroutine scope.
+                val error = result.exceptionOrNull()
+                _uiEvent.emit(TasksUIEvent.Error(error?.message))
             }
         }
-    }.stateIn(
-        viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = TasksUIState.Loading
-    )
+        .map { result ->
+            if (result.isSuccess) {
+                // Transforms result i.e. Flow<Result<List<PresentationTask>>>
+                // to UI State i.e. Flow<TaskUIState> if successful
+                val tasks = result.getOrNull().orEmpty()
+                TasksUIState.Success(tasks = tasks)
+            } else {
+                TasksUIState.Success(tasks = emptyList())
+            }
+        }.stateIn( // converts Flow<TaskUIState> to StateFlow<TaskUIState>
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = TasksUIState.Loading
+        )
+
     // Create, Update, Delete, and Mark Task as Completed operations
 
     fun saveTask(taskUpdateDetails: TaskUpdateDetails, isNewTask: Boolean) {
