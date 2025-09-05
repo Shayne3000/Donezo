@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
@@ -30,7 +31,7 @@ fun TaskBottomSheetViewContent(
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         IconButton(
-            modifier = Modifier.align(Alignment.End),
+            modifier = Modifier.align(Alignment.End).padding(end = MaterialTheme.dimensions.xxxSmall),
             onClick = onEditClicked
         ) {
             Icon(
@@ -41,8 +42,15 @@ fun TaskBottomSheetViewContent(
         }
 
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = MaterialTheme.dimensions.small,
+                    end = MaterialTheme.dimensions.small,
+                ),
             text = selectedTask.title,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
@@ -50,7 +58,12 @@ fun TaskBottomSheetViewContent(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = MaterialTheme.dimensions.xxSmall)
+                .padding(
+                    top = MaterialTheme.dimensions.xxSmall,
+                    start = MaterialTheme.dimensions.small,
+                    end = MaterialTheme.dimensions.small,
+                    bottom = MaterialTheme.dimensions.small
+                )
                 .verticalScroll(rememberScrollState()),
             text = selectedTask.description,
             color = MaterialTheme.colorScheme.onSurface,

@@ -21,7 +21,7 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     )
     val uiEvent: SharedFlow<TasksUIEvent> = _uiEvent
 
-    // Idiomatic way to kick-off the streaming (or observance) of UI state changes
+    // Idiomatic way to kick-off streaming (or observance) of UI state changes
     // when the UI initialises collection and re-collection.
    // When re-collected, Room just delivers the latest cached snapshot,
     // not a fresh query unless data actually changed.

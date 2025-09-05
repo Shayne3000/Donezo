@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.tasks.TaskBottomSheetMode
-import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.description_placeholder
@@ -77,6 +77,7 @@ internal fun TasksBottomSheet(
             TaskBottomSheetMode.EDIT -> {
                 selectedTask?.let { task ->
                     TasksBottomSheetEditContent(
+                        modifier = Modifier.padding(MaterialTheme.dimensions.small),
                         selectedTask = task,
                         onSaveTask = saveAndDismiss
                     )
