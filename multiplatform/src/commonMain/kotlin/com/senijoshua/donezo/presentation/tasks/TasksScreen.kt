@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
+import com.senijoshua.donezo.presentation.components.LoadingScreen
 import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
 import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
@@ -164,7 +165,9 @@ private fun TasksContent(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             when (uiState) {
-                is TasksUIState.Loading -> {}
+                is TasksUIState.Loading -> {
+                    LoadingScreen(modifier = Modifier.padding(MaterialTheme.dimensions.small).fillMaxSize())
+                }
                 is TasksUIState.Success -> {
                     if (uiState.tasks.isEmpty()) {
                         EmptyState(stringResource(Res.string.empty_state_text))

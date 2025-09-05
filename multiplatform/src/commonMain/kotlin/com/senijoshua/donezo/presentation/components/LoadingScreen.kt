@@ -23,82 +23,92 @@ import androidx.compose.ui.draw.clip
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.valentinilk.shimmer.shimmer
+import network.chaintech.sdpcomposemultiplatform.sdp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Loading screen with a shimmer
  */
 @Composable
-private fun LoadingScreen(
+fun LoadingScreen(
     modifier: Modifier = Modifier,
 ) {
-    Card(
-        modifier = modifier.shimmer().fillMaxWidth().wrapContentHeight(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-        elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
-    ) {
-        Column(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small)) {
-            Row(
-                modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(
-                            width = MaterialTheme.dimensions.custom112,
-                            height = MaterialTheme.dimensions.medium
-                        )
-                        .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                        .background(color = MaterialTheme.colorScheme.outlineVariant)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Box(
-                    modifier = Modifier
-                        .size(MaterialTheme.dimensions.medium)
-                        .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                        .background(color = MaterialTheme.colorScheme.outlineVariant)
-                )
-            }
-
-            Box(
+    Column(modifier) {
+        repeat(2) { currentTime ->
+            Card(
                 modifier = Modifier
-                    .padding(top = MaterialTheme.dimensions.xxSmall).fillMaxWidth()
-                    .height(MaterialTheme.dimensions.medium)
-                    .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                    .background(color = MaterialTheme.colorScheme.outlineVariant)
-            )
-            Box(
-                modifier = Modifier
-                    .padding(top = MaterialTheme.dimensions.xSmall).fillMaxWidth()
-                    .height(MaterialTheme.dimensions.xLarge)
-                    .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                    .background(color = MaterialTheme.colorScheme.outlineVariant)
-            )
-            Row(
-                modifier = Modifier
+                    .shimmer()
                     .fillMaxWidth()
-                    .padding(
-                        top = MaterialTheme.dimensions.small,
-                        bottom = MaterialTheme.dimensions.xSmall
-                    ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .wrapContentHeight()
+                    .padding(top = if (currentTime > 0) MaterialTheme.dimensions.small else 0.sdp)
+                    .clip(RoundedCornerShape(MaterialTheme.dimensions.xSmall)),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+                elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(MaterialTheme.dimensions.medium)
-                        .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                        .background(color = MaterialTheme.colorScheme.outlineVariant)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(
-                            width = MaterialTheme.dimensions.custom112,
-                            height = MaterialTheme.dimensions.medium
+                Column(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(
+                                    width = MaterialTheme.dimensions.custom112,
+                                    height = MaterialTheme.dimensions.medium
+                                )
+                                .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                                .background(color = MaterialTheme.colorScheme.outlineVariant)
                         )
-                        .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                        .background(color = MaterialTheme.colorScheme.outlineVariant)
-                )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Box(
+                            modifier = Modifier
+                                .size(MaterialTheme.dimensions.medium)
+                                .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                                .background(color = MaterialTheme.colorScheme.outlineVariant)
+                        )
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .padding(top = MaterialTheme.dimensions.xxSmall).fillMaxWidth()
+                            .height(MaterialTheme.dimensions.medium)
+                            .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                            .background(color = MaterialTheme.colorScheme.outlineVariant)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .padding(top = MaterialTheme.dimensions.xSmall).fillMaxWidth()
+                            .height(MaterialTheme.dimensions.xLarge)
+                            .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                            .background(color = MaterialTheme.colorScheme.outlineVariant)
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                top = MaterialTheme.dimensions.small,
+                                bottom = MaterialTheme.dimensions.xSmall
+                            ),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(MaterialTheme.dimensions.medium)
+                                .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                                .background(color = MaterialTheme.colorScheme.outlineVariant)
+                        )
+                        Box(
+                            modifier = Modifier
+                                .size(
+                                    width = MaterialTheme.dimensions.custom112,
+                                    height = MaterialTheme.dimensions.medium
+                                )
+                                .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                                .background(color = MaterialTheme.colorScheme.outlineVariant)
+                        )
+                    }
+                }
             }
         }
     }
