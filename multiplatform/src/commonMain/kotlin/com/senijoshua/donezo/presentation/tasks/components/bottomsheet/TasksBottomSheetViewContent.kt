@@ -1,7 +1,10 @@
 package com.senijoshua.donezo.presentation.tasks.components.bottomsheet
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,8 +21,11 @@ import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
+import com.senijoshua.donezo.presentation.utils.getDateFormat
 import donezo.multiplatform.generated.resources.Res
+import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_edit
+import kotlinx.datetime.format
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -30,15 +36,31 @@ fun TaskBottomSheetViewContent(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        IconButton(
-            modifier = Modifier.align(Alignment.End).padding(end = MaterialTheme.dimensions.xxxSmall),
-            onClick = onEditClicked
+        Row(
+            modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(Res.drawable.ic_edit),
+                modifier = Modifier.padding(start = MaterialTheme.dimensions.small),
+                painter = painterResource(Res.drawable.ic_date),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
             )
+            Text(
+                modifier = Modifier.padding(start = MaterialTheme.dimensions.xxSmall),
+                text = selectedTask.createdTime.format(getDateFormat()),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+            IconButton(
+                onClick = onEditClicked
+            ) {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_edit),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
         }
 
         Text(

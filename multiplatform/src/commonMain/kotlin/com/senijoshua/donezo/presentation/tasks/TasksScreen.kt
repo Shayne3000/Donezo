@@ -57,6 +57,7 @@ import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
+import com.senijoshua.donezo.presentation.utils.getDateFormat
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.complete_task_text
 import donezo.multiplatform.generated.resources.empty_state_text
@@ -68,11 +69,7 @@ import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
 import donezo.multiplatform.generated.resources.tasks_tab_title
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
-import kotlinx.datetime.format.DateTimeFormat
-import kotlinx.datetime.format.MonthNames
-import kotlinx.datetime.format.char
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -184,7 +181,6 @@ private fun TasksContent(
                                         .animateItem(),
                                     task = task,
                                     onMarkedAsDone = {
-                                        // TODO Validate that the item animates away
                                         onTaskCompleted(task.id)
                                     },
                                     onEdit = { task ->
@@ -193,8 +189,6 @@ private fun TasksContent(
                                         showTaskDialog = true
                                     },
                                     onDelete = {
-                                        // TODO Consider showing a delete confirmation dialog and
-                                        //  do the below if confirmed.
                                         onDeleteTask(task.id)
                                     },
                                     onClick = {
@@ -341,16 +335,6 @@ private fun TaskItem(
                 }
             }
         }
-    }
-}
-
-private fun getDateFormat(): DateTimeFormat<LocalDate> {
-    return LocalDate.Format {
-        day()
-        char(' ')
-        monthName(names = MonthNames.ENGLISH_ABBREVIATED)
-        char(' ')
-        year()
     }
 }
 

@@ -59,7 +59,7 @@ internal fun TasksBottomSheet(
             TaskBottomSheetMode.CREATE -> {
                 TasksBottomSheetCreateContent(
                     modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                    onSaveTask = saveAndDismiss
+                    onSaveTask = onSaveTask
                 )
             }
 
@@ -79,7 +79,7 @@ internal fun TasksBottomSheet(
                     TasksBottomSheetEditContent(
                         modifier = Modifier.padding(MaterialTheme.dimensions.small),
                         selectedTask = task,
-                        onSaveTask = saveAndDismiss
+                        onSaveTask = onSaveTask
                     )
                 }
             }
