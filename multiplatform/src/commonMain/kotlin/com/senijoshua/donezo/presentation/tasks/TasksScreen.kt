@@ -46,6 +46,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -163,15 +164,17 @@ private fun TasksContent(
             )
             when (uiState) {
                 is TasksUIState.Loading -> {
-                    LoadingScreen(modifier = Modifier.padding(MaterialTheme.dimensions.small).fillMaxSize())
+                    LoadingScreen(
+                        modifier = Modifier.fillMaxSize().padding(horizontal = MaterialTheme.dimensions.small)
+                    )
                 }
+
                 is TasksUIState.Success -> {
                     if (uiState.tasks.isEmpty()) {
                         EmptyState(stringResource(Res.string.empty_state_text))
                     } else {
                         LazyColumn(
-                            Modifier
-                                .padding(MaterialTheme.dimensions.xxSmall).fillMaxSize(),
+                            Modifier.fillMaxSize(),
                             contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small)
                         ) {
                             items(items = uiState.tasks, key = { task -> task.id }) { task ->
@@ -244,13 +247,18 @@ private fun TaskItem(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier.fillMaxWidth().wrapContentHeight().clickable {
-            onClick()
-        },
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
     ) {
-        Column(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small)) {
+        Column(
+            modifier = Modifier
+                .clip(RoundedCornerShape(MaterialTheme.dimensions.xSmall))
+                .clickable { onClick() }
+                .padding(horizontal = MaterialTheme.dimensions.small)
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
                 verticalAlignment = Alignment.CenterVertically
@@ -384,7 +392,7 @@ private fun TasksScreenLightPreview() {
     DonezoTheme {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
-            onSaveTask = {_,_ ->},
+            onSaveTask = { _, _ -> },
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},
             onTaskCompleted = {}
@@ -398,7 +406,7 @@ private fun TasksScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         TasksContent(
             uiState = TasksUIState.Success(tasks = previewTasks),
-            onSaveTask = {_,_ ->},
+            onSaveTask = { _, _ -> },
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},
             onTaskCompleted = {}

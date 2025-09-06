@@ -23,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.valentinilk.shimmer.shimmer
-import network.chaintech.sdpcomposemultiplatform.sdp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
@@ -34,18 +33,19 @@ fun LoadingScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
-        repeat(2) { currentTime ->
+        repeat(2) {
             Card(
                 modifier = Modifier
                     .shimmer()
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(top = if (currentTime > 0) MaterialTheme.dimensions.small else 0.sdp)
-                    .clip(RoundedCornerShape(MaterialTheme.dimensions.xSmall)),
+                    .padding(vertical = MaterialTheme.dimensions.xSmall),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
             ) {
-                Column(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small)) {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.dimensions.small)
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge),
                         verticalAlignment = Alignment.CenterVertically
@@ -119,7 +119,7 @@ fun LoadingScreen(
 private fun LoadingScreenLightPreview() {
     DonezoTheme {
         Surface {
-            LoadingScreen(modifier = Modifier.padding(MaterialTheme.dimensions.small))
+            LoadingScreen(modifier = Modifier.padding(horizontal = MaterialTheme.dimensions.small))
         }
     }
 }
