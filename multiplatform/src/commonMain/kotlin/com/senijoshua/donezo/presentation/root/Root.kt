@@ -1,6 +1,5 @@
 package com.senijoshua.donezo.presentation.root
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,53 +41,51 @@ fun Root(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surface,
         bottomBar = {
-            Box(
-                modifier = Modifier.padding(
-                    start = MaterialTheme.dimensions.small,
-                    end = MaterialTheme.dimensions.small,
-                    bottom = MaterialTheme.dimensions.small
-                ).clip(RoundedCornerShape(MaterialTheme.dimensions.large))
+            NavigationBar(
+                modifier = Modifier
+                    .padding(
+                        vertical = MaterialTheme.dimensions.xxSmall,
+                        horizontal = MaterialTheme.dimensions.small,
+                    )
+                    .clip(RoundedCornerShape(MaterialTheme.dimensions.large)),
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
             ) {
-                NavigationBar(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                ) {
-                    appLevelRoutes.forEachIndexed { index, appLevelRoute ->
-                        val itemName = stringResource(appLevelRoute.name)
+                appLevelRoutes.forEachIndexed { index, appLevelRoute ->
+                    val itemName = stringResource(appLevelRoute.name)
 
-                        val isTabSelected = index == selectedDestinationIndex
+                    val isTabSelected = index == selectedDestinationIndex
 
-                        NavigationBarItem(
-                            selected = isTabSelected,
-                            colors = NavigationBarItemColors(
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
-                                selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-                                selectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                selectedTextColor = MaterialTheme.colorScheme.onSurface,
-                                disabledIconColor = MaterialTheme.colorScheme.onSurface,
-                                disabledTextColor = MaterialTheme.colorScheme.onSurface
-                            ),
-                            onClick = {
-                                selectedDestinationIndex = index
-                                navController.navigate(appLevelRoute.route) {
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(appLevelRoute.icon),
-                                    contentDescription = itemName
-                                )
-                            },
-                            label = {
-                                Text(
-                                    text = itemName,
-                                    style = MaterialTheme.typography.labelSmall,
-                                )
-                            },
-                        )
-                    }
+                    NavigationBarItem(
+                        selected = isTabSelected,
+                        colors = NavigationBarItemColors(
+                            unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                            unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                            selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                            selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                            selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                            disabledIconColor = MaterialTheme.colorScheme.onSurface,
+                            disabledTextColor = MaterialTheme.colorScheme.onSurface
+                        ),
+                        onClick = {
+                            selectedDestinationIndex = index
+                            navController.navigate(appLevelRoute.route) {
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        icon = {
+                            Icon(
+                                painter = painterResource(appLevelRoute.icon),
+                                contentDescription = itemName
+                            )
+                        },
+                        label = {
+                            Text(
+                                text = itemName,
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                        },
+                    )
                 }
             }
         }

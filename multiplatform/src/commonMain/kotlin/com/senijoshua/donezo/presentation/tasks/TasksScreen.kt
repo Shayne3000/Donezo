@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -121,8 +122,10 @@ private fun TasksContent(
 ) {
     var showTaskDialog by mutableStateOf(false)
     val sheetState = rememberModalBottomSheetState()
+    val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
+    var hasCreatedNewItem by remember { mutableStateOf(false)}
     var selectedTask: PresentationTask? = null
 
     Scaffold(
@@ -170,11 +173,21 @@ private fun TasksContent(
                 }
 
                 is TasksUIState.Success -> {
-                    if (uiState.tasks.isEmpty()) {
+                    val tasks = uiState.tasks
+
+                    LaunchedEffect(tasks.size) {
+                        if (tasks.isNotEmpty() && hasCreatedNewItem) {
+                            listState.scrollToItem(tasks.lastIndex)
+                            hasCreatedNewItem = false
+                        }
+                    }
+
+                    if (tasks.isEmpty()) {
                         EmptyState(stringResource(Res.string.empty_state_text))
                     } else {
                         LazyColumn(
-                            Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize(),
+                            state = listState,
                             contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small)
                         ) {
                             items(items = uiState.tasks, key = { task -> task.id }) { task ->
@@ -224,6 +237,10 @@ private fun TasksContent(
                         ),
                         isNewTask
                     )
+
+                    if (isNewTask) {
+                        hasCreatedNewItem = true
+                    }
                 },
                 onDismiss = {
                     coroutineScope.launch {
