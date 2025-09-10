@@ -45,9 +45,9 @@ fun Root(
                 modifier = Modifier
                     .padding(
                         vertical = MaterialTheme.dimensions.xxSmall,
-                        horizontal = MaterialTheme.dimensions.small,
+                        horizontal = MaterialTheme.dimensions.xSmall,
                     )
-                    .clip(RoundedCornerShape(MaterialTheme.dimensions.large)),
+                    .clip(RoundedCornerShape(MaterialTheme.dimensions.small)),
                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
             ) {
                 appLevelRoutes.forEachIndexed { index, appLevelRoute ->
