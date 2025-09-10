@@ -17,6 +17,5 @@ fun NavGraphBuilder.tasksGraph() {
         composable<TasksRoute> {
             TasksScreen()
         }
-        // TODO Task list and create task dialog destinations here.
     }
 }

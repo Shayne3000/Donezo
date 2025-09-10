@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.senijoshua.donezo.presentation.completed.completedGraph
 import com.senijoshua.donezo.presentation.tasks.tasksGraph
 import com.senijoshua.donezo.presentation.theme.dimensions
 import org.jetbrains.compose.resources.painterResource
@@ -70,7 +71,6 @@ fun Root(
                             selectedDestinationIndex = index
                             navController.navigate(appLevelRoute.route) {
                                 launchSingleTop = true
-                                restoreState = true
                             }
                         },
                         icon = {
@@ -97,6 +97,7 @@ fun Root(
         ) {
             // App-level nested nav graphs
             tasksGraph()
+            completedGraph()
         }
     }
 }

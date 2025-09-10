@@ -69,7 +69,7 @@ import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
 import donezo.multiplatform.generated.resources.ic_delete
 import donezo.multiplatform.generated.resources.ic_edit
-import donezo.multiplatform.generated.resources.tasks_tab_title
+import donezo.multiplatform.generated.resources.task_header
 import kotlinx.coroutines.launch
 import kotlinx.datetime.format
 import org.jetbrains.compose.resources.painterResource
@@ -161,7 +161,7 @@ private fun TasksContent(
                     start = MaterialTheme.dimensions.small,
                     top = MaterialTheme.dimensions.small
                 ).fillMaxWidth(),
-                text = stringResource(Res.string.tasks_tab_title),
+                text = stringResource(Res.string.task_header),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )

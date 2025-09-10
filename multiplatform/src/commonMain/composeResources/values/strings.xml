@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name = "tasks_tab_title">Tasks</string>
+    <string name = "tasks_tab_title">To-Do</string>
     <string name = "completed_tab_title">Completed</string>
     <string name = "characters_tab_title">Characters</string>
     <string name = "generic_error_message">Something went wrong. Please try again later.</string>
     <!--Empty state-->
     <string name="empty_state_text">You currently have no tasks to do. Click the button below to add some.</string>
     <!--Tasks screen-->
+    <string name="task_header">Tasks</string>
     <string name="complete_task_text">Mark done</string>
     <string name="new_task">New Task</string>
     <string name="edit_task">Edit Task</string>
     <string name="title_placeholder">Enter a title</string>
     <string name="description_placeholder">Enter a description for your task</string>
     <string name="save">Save</string>
+    <!--Completed screen-->
+    <string name="completed_header">Completed</string>
 </resources>
