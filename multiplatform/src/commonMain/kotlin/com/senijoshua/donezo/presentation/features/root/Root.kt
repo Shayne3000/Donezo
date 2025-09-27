@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.root
+package com.senijoshua.donezo.presentation.features.root
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,8 +20,8 @@ import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.senijoshua.donezo.presentation.completed.completedGraph
-import com.senijoshua.donezo.presentation.tasks.tasksGraph
+import com.senijoshua.donezo.presentation.features.completed.completedGraph
+import com.senijoshua.donezo.presentation.features.tasks.tasksGraph
 import com.senijoshua.donezo.presentation.theme.dimensions
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

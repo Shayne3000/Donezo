@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.root
+package com.senijoshua.donezo.presentation.features.root
 
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.characters_tab_title

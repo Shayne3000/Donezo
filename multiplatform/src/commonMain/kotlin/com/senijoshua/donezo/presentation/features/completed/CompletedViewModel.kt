@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.completed
+package com.senijoshua.donezo.presentation.features.completed
 
 import androidx.lifecycle.ViewModel
 

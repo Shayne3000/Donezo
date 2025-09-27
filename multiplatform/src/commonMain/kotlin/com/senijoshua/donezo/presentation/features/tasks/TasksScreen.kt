@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.senijoshua.donezo.presentation.tasks
+package com.senijoshua.donezo.presentation.features.tasks
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -53,17 +53,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.components.LoadingScreen
-import com.senijoshua.donezo.presentation.tasks.components.bottomsheet.TasksBottomSheet
-import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
-import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.previewTasks
+import com.senijoshua.donezo.presentation.features.tasks.components.bottomsheet.TasksBottomSheet
+import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.features.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getDateFormat
+import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.complete_task_text
 import donezo.multiplatform.generated.resources.empty_state_text
-import donezo.multiplatform.generated.resources.generic_error_message
 import donezo.multiplatform.generated.resources.ic_add
 import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
@@ -83,7 +83,7 @@ fun TasksScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
-    val genericErrorMessage = stringResource(Res.string.generic_error_message)
+    val genericErrorMessage = getGenericErrorMessage()
 
     TasksContent(
         uiState = uiState,

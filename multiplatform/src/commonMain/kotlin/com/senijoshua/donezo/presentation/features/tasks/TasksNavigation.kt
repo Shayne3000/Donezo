@@ -1,9 +1,9 @@
-package com.senijoshua.donezo.presentation.tasks
+package com.senijoshua.donezo.presentation.features.tasks
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.senijoshua.donezo.presentation.root.TasksGraph
+import com.senijoshua.donezo.presentation.features.root.TasksGraph
 import kotlinx.serialization.Serializable
 
 @Serializable

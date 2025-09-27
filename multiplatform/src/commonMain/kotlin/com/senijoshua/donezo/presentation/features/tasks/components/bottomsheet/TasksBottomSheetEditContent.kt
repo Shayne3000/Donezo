@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.tasks.components.bottomsheet
+package com.senijoshua.donezo.presentation.features.tasks.components.bottomsheet
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -10,9 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.senijoshua.donezo.presentation.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
-import com.senijoshua.donezo.presentation.tasks.model.previewTasks
+import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.features.tasks.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
