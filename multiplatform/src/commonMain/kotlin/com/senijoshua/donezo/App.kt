@@ -9,7 +9,7 @@ import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
-import com.senijoshua.donezo.presentation.root.Root
+import com.senijoshua.donezo.presentation.features.root.Root
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.utils.isDebugBuild
 import okio.FileSystem

@@ -1,7 +1,7 @@
 package com.senijoshua.donezo.data.util
 
 import com.senijoshua.donezo.data.local.task.TaskEntity
-import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
 
 fun TaskEntity.toPresentation() = PresentationTask(
     id = id,

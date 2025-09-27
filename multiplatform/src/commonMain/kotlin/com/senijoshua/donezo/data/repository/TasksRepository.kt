@@ -1,6 +1,6 @@
 package com.senijoshua.donezo.data.repository
 
-import com.senijoshua.donezo.presentation.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
 import kotlinx.coroutines.flow.Flow
 
 interface TasksRepository {
