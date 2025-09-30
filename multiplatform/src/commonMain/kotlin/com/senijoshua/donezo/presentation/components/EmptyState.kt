@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
-import donezo.multiplatform.generated.resources.empty_state_text
+import donezo.multiplatform.generated.resources.empty_state_todo_text
 import donezo.multiplatform.generated.resources.ic_info
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -67,7 +67,7 @@ fun EmptyState(
 fun EmptyStateLightPreview() {
     DonezoTheme {
         Surface {
-            EmptyState(text = stringResource(Res.string.empty_state_text))
+            EmptyState(text = stringResource(Res.string.empty_state_todo_text))
         }
     }
 }
@@ -77,7 +77,7 @@ fun EmptyStateLightPreview() {
 fun EmptyStateDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
-            EmptyState(text = stringResource(Res.string.empty_state_text))
+            EmptyState(text = stringResource(Res.string.empty_state_todo_text))
         }
     }
 }

@@ -5,7 +5,6 @@
     <string name = "characters_tab_title">Characters</string>
     <string name = "generic_error_message">Something went wrong. Please try again later.</string>
     <!--Empty state-->
-    <string name="empty_state_text">You currently have no tasks to do. Click the button below to add some.</string>
     <!--Tasks screen-->
     <string name="task_header">Tasks</string>
     <string name="complete_task_text">Mark done</string>
@@ -14,6 +13,8 @@
     <string name="title_placeholder">Enter a title</string>
     <string name="description_placeholder">Enter a description for your task</string>
     <string name="save">Save</string>
+    <string name="empty_state_todo_text">You currently have no tasks to do. Click the button below to add some.</string>
     <!--Completed screen-->
     <string name="completed_header">Completed</string>
+    <string name="empty_state_completed_text">You have not completed any tasks yet.</string>
 </resources>

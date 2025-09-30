@@ -63,7 +63,7 @@ import com.senijoshua.donezo.presentation.utils.getDateFormat
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.complete_task_text
-import donezo.multiplatform.generated.resources.empty_state_text
+import donezo.multiplatform.generated.resources.empty_state_todo_text
 import donezo.multiplatform.generated.resources.ic_add
 import donezo.multiplatform.generated.resources.ic_completed
 import donezo.multiplatform.generated.resources.ic_date
@@ -183,14 +183,14 @@ private fun TasksContent(
                     }
 
                     if (tasks.isEmpty()) {
-                        EmptyState(stringResource(Res.string.empty_state_text))
+                        EmptyState(stringResource(Res.string.empty_state_todo_text))
                     } else {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
                             state = listState,
                             contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small)
                         ) {
-                            items(items = uiState.tasks, key = { task -> task.id }) { task ->
+                            items(items = tasks, key = { task -> task.id }) { task ->
                                 TaskItem(
                                     modifier = Modifier
                                         .padding(vertical = MaterialTheme.dimensions.xSmall)

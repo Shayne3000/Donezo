@@ -31,6 +31,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun LoadingScreen(
     modifier: Modifier = Modifier,
+    shouldShowEditButton: Boolean = true
 ) {
     Column(modifier) {
         repeat(2) {
@@ -59,13 +60,15 @@ fun LoadingScreen(
                                 .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
                                 .background(color = MaterialTheme.colorScheme.outlineVariant)
                         )
-                        Spacer(modifier = Modifier.weight(1f))
-                        Box(
-                            modifier = Modifier
-                                .size(MaterialTheme.dimensions.medium)
-                                .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
-                                .background(color = MaterialTheme.colorScheme.outlineVariant)
-                        )
+                        if (shouldShowEditButton) {
+                            Spacer(modifier = Modifier.weight(1f))
+                            Box(
+                                modifier = Modifier
+                                    .size(MaterialTheme.dimensions.medium)
+                                    .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                                    .background(color = MaterialTheme.colorScheme.outlineVariant)
+                            )
+                        }
                     }
 
                     Box(

@@ -1,7 +1,11 @@
 package com.senijoshua.donezo.presentation.features.completed
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -14,9 +18,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.senijoshua.donezo.presentation.components.EmptyState
+import com.senijoshua.donezo.presentation.components.LoadingScreen
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
+import donezo.multiplatform.generated.resources.Res
+import donezo.multiplatform.generated.resources.empty_state_completed_text
 import kotlinx.coroutines.flow.SharedFlow
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -51,8 +60,31 @@ private fun CompletedContent(
             )
         }
     }) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
+        Column(modifier = modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.surface)
+            .padding(paddingValues)
+        ) {
+            when (uiState) {
+                is CompletedUiState.Loading -> {
+                    LoadingScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        shouldShowEditButton = false
+                    )
+                }
+                is CompletedUiState.Success -> {
+                    val completedTasks = uiState.completedTasks
 
+                    if (completedTasks.isEmpty()) {
+                        EmptyState(stringResource(Res.string.empty_state_completed_text))
+                    } else {
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(items = completedTasks,  key = { task -> task.id }) { completedTasks ->
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
