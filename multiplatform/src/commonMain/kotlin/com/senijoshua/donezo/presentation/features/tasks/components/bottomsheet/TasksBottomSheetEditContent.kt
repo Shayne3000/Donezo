@@ -10,9 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
-import com.senijoshua.donezo.presentation.features.tasks.model.previewTasks
+import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res

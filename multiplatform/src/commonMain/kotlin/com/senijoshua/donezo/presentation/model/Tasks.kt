@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.features.tasks.model
+package com.senijoshua.donezo.presentation.model
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone

@@ -54,9 +54,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.components.LoadingScreen
 import com.senijoshua.donezo.presentation.features.tasks.components.bottomsheet.TasksBottomSheet
-import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
-import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.features.tasks.model.previewTasks
+import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.model.previewTasks
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getDateFormat

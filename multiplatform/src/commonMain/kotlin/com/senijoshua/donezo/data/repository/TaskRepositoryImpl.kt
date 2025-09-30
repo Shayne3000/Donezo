@@ -4,7 +4,7 @@ import com.senijoshua.donezo.data.local.task.TaskDao
 import com.senijoshua.donezo.data.local.task.TaskEntity
 import com.senijoshua.donezo.data.util.asResult
 import com.senijoshua.donezo.data.util.toPresentation
-import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.PresentationTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

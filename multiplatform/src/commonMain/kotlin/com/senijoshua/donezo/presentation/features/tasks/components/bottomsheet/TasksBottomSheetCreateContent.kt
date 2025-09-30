@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.new_task

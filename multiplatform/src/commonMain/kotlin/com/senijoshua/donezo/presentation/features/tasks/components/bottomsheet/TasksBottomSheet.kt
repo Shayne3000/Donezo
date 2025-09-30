@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.features.tasks.TaskBottomSheetMode
-import com.senijoshua.donezo.presentation.features.tasks.model.PresentationTask
-import com.senijoshua.donezo.presentation.features.tasks.model.TaskUpdateDetails
+import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.description_placeholder
