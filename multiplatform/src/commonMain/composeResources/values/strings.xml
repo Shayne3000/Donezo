@@ -16,5 +16,6 @@
     <string name="empty_state_todo_text">You currently have no tasks to do. Click the button below to add some.</string>
     <!--Completed screen-->
     <string name="completed_header">Completed</string>
-    <string name="empty_state_completed_text">You have not completed any tasks yet.</string>
+    <string name="empty_state_completed_text">You have not completed any tasks yet. Mark some as done.</string>
+    <string name="todo_task_text">Mark to-do</string>
 </resources>
