@@ -33,6 +33,7 @@ internal fun donezoDimensions(): Dimensions {
         xxLarge = 56.sdp,
         xxxLarge = 64.sdp,
         custom112 = 112.sdp,
+        custom172 = 172.sdp,
     )
 }
 
@@ -52,5 +53,6 @@ data class Dimensions(
     val xxxLarge: Dp = 64.dp,
     // This represents custom sizes for components whose dimensions
     // do not fit within the above structure
-    val custom112: Dp = 112.dp
+    val custom112: Dp = 112.dp,
+    val custom172: Dp = 172.dp
 )

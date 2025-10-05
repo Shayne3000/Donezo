@@ -1,6 +1,7 @@
 package com.senijoshua.donezo.presentation.features.root
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -48,6 +49,7 @@ fun Root(
                         vertical = MaterialTheme.dimensions.xxSmall,
                         horizontal = MaterialTheme.dimensions.xSmall,
                     )
+                    .height(MaterialTheme.dimensions.xxLarge)
                     .clip(RoundedCornerShape(MaterialTheme.dimensions.small)),
                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
             ) {

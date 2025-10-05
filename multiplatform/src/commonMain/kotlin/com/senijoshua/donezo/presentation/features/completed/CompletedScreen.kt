@@ -2,6 +2,7 @@ package com.senijoshua.donezo.presentation.features.completed
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -45,7 +46,9 @@ fun CompletedScreen(
 
     CompletedContent(
         uiState = uiState,
-        uiEvent = uiEvent
+        uiEvent = uiEvent,
+        onMarkedAsTodo = viewModel::markTaskAsTodo,
+        onDelete = viewModel::deleteCompletedTask
     )
 }
 
@@ -53,7 +56,9 @@ fun CompletedScreen(
 private fun CompletedContent(
     modifier: Modifier = Modifier,
     uiState: CompletedUiState,
-    uiEvent: SharedFlow<CompletedUiEvent>
+    uiEvent: SharedFlow<CompletedUiEvent>,
+    onMarkedAsTodo: (Int) -> Unit,
+    onDelete: (Int) -> Unit,
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = getGenericErrorMessage()
@@ -98,7 +103,10 @@ private fun CompletedContent(
                     if (completedTasks.isEmpty()) {
                         EmptyState(stringResource(Res.string.empty_state_completed_text))
                     } else {
-                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small)
+                        ) {
                             items(
                                 items = completedTasks,
                                 key = { task -> task.id }) { completedTasks ->
@@ -107,10 +115,13 @@ private fun CompletedContent(
                                         .padding(vertical = MaterialTheme.dimensions.xSmall)
                                         .animateItem(),
                                     task = completedTasks,
-                                    onMarkedAsTodo = {},
+                                    onMarkedAsTodo = {
+                                        onMarkedAsTodo(completedTasks.id)
+                                    },
                                     isCompleted = true,
-                                    onDelete = {},
-                                    onClick = {}
+                                    onDelete = {
+                                        onDelete(completedTasks.id)
+                                    },
                                 )
                             }
                         }
@@ -170,8 +181,10 @@ private fun CompletedScreenLightPreview() {
     DonezoTheme {
         Surface {
             CompletedContent(
-                uiState = CompletedUiState.Loading,
-                uiEvent = MutableSharedFlow()
+                uiState = CompletedUiState.Success(completedTasks = previewTasks),
+                uiEvent = MutableSharedFlow(),
+                onMarkedAsTodo = {},
+                onDelete = {},
             )
         }
     }
@@ -182,7 +195,12 @@ private fun CompletedScreenLightPreview() {
 private fun CompletedScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
-            CompletedContent(uiState = CompletedUiState.Loading, uiEvent = MutableSharedFlow())
+            CompletedContent(
+                uiState = CompletedUiState.Success(completedTasks = previewTasks),
+                uiEvent = MutableSharedFlow(),
+                onMarkedAsTodo = {},
+                onDelete = {},
+            )
         }
     }
 }

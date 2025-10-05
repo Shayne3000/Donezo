@@ -44,7 +44,7 @@ import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.empty_state_todo_text
 import donezo.multiplatform.generated.resources.ic_add
-import donezo.multiplatform.generated.resources.task_header
+import donezo.multiplatform.generated.resources.tasks_tab_title
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -99,7 +99,7 @@ private fun TasksContent(
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
-    var hasCreatedNewItem by remember { mutableStateOf(false)}
+    var hasCreatedNewItem by remember { mutableStateOf(false) }
     var selectedTask: PresentationTask? = null
 
     Scaffold(
@@ -131,18 +131,21 @@ private fun TasksContent(
                 .fillMaxSize().background(color = MaterialTheme.colorScheme.surface)
         ) {
             Text(
-                modifier = Modifier.padding(
-                    start = MaterialTheme.dimensions.small,
-                    top = MaterialTheme.dimensions.small
-                ).fillMaxWidth(),
-                text = stringResource(Res.string.task_header),
+                modifier = Modifier
+                    .padding(
+                        start = MaterialTheme.dimensions.small,
+                        top = MaterialTheme.dimensions.small
+                    )
+                    .fillMaxWidth(),
+                text = stringResource(Res.string.tasks_tab_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
             when (uiState) {
                 is TasksUIState.Loading -> {
                     LoadingScreen(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = MaterialTheme.dimensions.small)
+                        modifier = Modifier.fillMaxSize()
+                            .padding(horizontal = MaterialTheme.dimensions.small)
                     )
                 }
 

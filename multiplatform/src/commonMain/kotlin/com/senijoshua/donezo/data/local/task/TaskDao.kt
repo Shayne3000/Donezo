@@ -10,10 +10,10 @@ interface TaskDao {
     @Insert
     suspend fun insertTask(task: TaskEntity)
 
-    @Query("SELECT * FROM tasks WHERE isComplete = 0")
+    @Query("SELECT * FROM tasks WHERE isComplete = 0 ORDER BY createdTime")
     fun getTasks(): Flow<List<TaskEntity>> // Room executes Flow queries on a background thread automatically
 
-    @Query("SELECT * FROM tasks WHERE isComplete = 1")
+    @Query("SELECT * FROM tasks WHERE isComplete = 1 ORDER BY createdTime")
     fun getCompletedTasks(): Flow<List<TaskEntity>>
 
     @Query("UPDATE tasks SET title = :title, description = :description WHERE id = :id")

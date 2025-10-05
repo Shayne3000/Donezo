@@ -2,15 +2,16 @@ package com.senijoshua.donezo.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,11 +58,11 @@ fun TaskItem(
     task: PresentationTask,
     isCompleted: Boolean,
     onDelete: () -> Unit,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     onEdit: (PresentationTask) -> Unit = {},
     onMarkedAsDone: () -> Unit = {},
     onMarkedAsTodo: () -> Unit = {},
+    onClick: () -> Unit = {},
 ) {
     val titleTextStyle = MaterialTheme.typography.titleMedium.copy(
         textDecoration = if (isCompleted) TextDecoration.LineThrough else null
@@ -87,7 +88,7 @@ fun TaskItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .height(MaterialTheme.dimensions.custom172),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.dimensions.xxSmall)
     ) {
@@ -98,7 +99,8 @@ fun TaskItem(
                 .padding(horizontal = MaterialTheme.dimensions.small)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge).alpha(opacity),
+                modifier = Modifier.fillMaxWidth().height(MaterialTheme.dimensions.xLarge)
+                    .alpha(opacity),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -133,52 +135,62 @@ fun TaskItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Text(
-                modifier = Modifier.padding(top = MaterialTheme.dimensions.xSmall).alpha(opacity),
-                text = task.description,
-                style = descriptionTextStyle,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(
-                    top = MaterialTheme.dimensions.small,
-                    bottom = MaterialTheme.dimensions.xSmall
-                ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+            Box(
+                Modifier
+                    .padding(vertical = MaterialTheme.dimensions.xSmall)
+                    .fillMaxHeight()
             ) {
-                IconButton(
-                    modifier = Modifier.offset(x = -(MaterialTheme.dimensions.xSmall)),
-                    onClick = {
-                        onDelete()
-                    }) {
-                    Icon(
-                        painter = painterResource(Res.drawable.ic_delete),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error
-                    )
-                }
-                Button(
-                    modifier = Modifier.wrapContentSize(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    ),
-                    shape = RoundedCornerShape(CornerSize(MaterialTheme.dimensions.xxSmall)),
-                    contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small),
-                    onClick = onButtonClick
+                Text(
+                    modifier = Modifier
+                        .align(alignment = Alignment.TopStart)
+                        .alpha(opacity),
+                    text = task.description,
+                    style = descriptionTextStyle,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = MaterialTheme.dimensions.small,
+                        )
+                        .align(alignment = Alignment.BottomStart),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        modifier = Modifier.padding(end = MaterialTheme.dimensions.xxSmall),
-                        painter = buttonIcon,
-                        contentDescription = null
-                    )
-                    Text(
-                        text = buttonText,
-                        style = MaterialTheme.typography.labelMedium,
-                    )
+                    IconButton(
+                        modifier = Modifier.offset(x = -(MaterialTheme.dimensions.xSmall)),
+                        onClick = {
+                            onDelete()
+                        }) {
+                        Icon(
+                            painter = painterResource(Res.drawable.ic_delete),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    Button(
+                        modifier = Modifier.wrapContentSize(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        shape = RoundedCornerShape(CornerSize(MaterialTheme.dimensions.xxSmall)),
+                        contentPadding = PaddingValues(horizontal = MaterialTheme.dimensions.small),
+                        onClick = onButtonClick
+                    ) {
+                        Icon(
+                            modifier = Modifier.padding(end = MaterialTheme.dimensions.xxSmall),
+                            painter = buttonIcon,
+                            contentDescription = null
+                        )
+                        Text(
+                            text = buttonText,
+                            style = MaterialTheme.typography.labelMedium,
+                        )
+                    }
                 }
             }
         }

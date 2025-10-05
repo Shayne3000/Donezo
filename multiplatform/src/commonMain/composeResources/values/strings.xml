@@ -6,7 +6,6 @@
     <string name = "generic_error_message">Something went wrong. Please try again later.</string>
     <!--Empty state-->
     <!--Tasks screen-->
-    <string name="task_header">Tasks</string>
     <string name="complete_task_text">Mark done</string>
     <string name="new_task">New Task</string>
     <string name="edit_task">Edit Task</string>
