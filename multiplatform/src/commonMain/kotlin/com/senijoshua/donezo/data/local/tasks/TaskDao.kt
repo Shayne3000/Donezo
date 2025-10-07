@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.data.local.task
+package com.senijoshua.donezo.data.local.tasks
 
 import androidx.room.Dao
 import androidx.room.Insert

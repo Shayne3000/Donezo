@@ -1,6 +1,6 @@
-package com.senijoshua.donezo.data.util
+package com.senijoshua.donezo.data.mappers
 
-import com.senijoshua.donezo.data.local.task.TaskEntity
+import com.senijoshua.donezo.data.local.tasks.TaskEntity
 import com.senijoshua.donezo.presentation.model.PresentationTask
 
 fun TaskEntity.toPresentation() = PresentationTask(

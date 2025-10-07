@@ -2,7 +2,7 @@ package com.senijoshua.donezo.presentation.features.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.senijoshua.donezo.data.repository.TasksRepository
+import com.senijoshua.donezo.data.repository.tasks.TasksRepository
 import com.senijoshua.donezo.presentation.model.PresentationTask
 import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.data.local.task
+package com.senijoshua.donezo.data.local.tasks
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

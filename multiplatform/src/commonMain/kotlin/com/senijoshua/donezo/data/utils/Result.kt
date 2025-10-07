@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.data.util
+package com.senijoshua.donezo.data.utils
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

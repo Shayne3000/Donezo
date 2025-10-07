@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.data.local
+package com.senijoshua.donezo.data.local.utils
 
 import androidx.room.TypeConverter
 import kotlinx.datetime.LocalDate
@@ -10,7 +10,7 @@ import kotlinx.datetime.LocalDate
 class DateConverter {
     @TypeConverter
     fun fromLongToLocalDate(value: Long): LocalDate {
-        return LocalDate.fromEpochDays(value)
+        return LocalDate.Companion.fromEpochDays(value)
     }
 
     @TypeConverter

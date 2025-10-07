@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.data.repository
+package com.senijoshua.donezo.data.repository.tasks
 
 import com.senijoshua.donezo.presentation.model.PresentationTask
 import kotlinx.coroutines.flow.Flow

@@ -1,7 +1,7 @@
 package com.senijoshua.donezo.di
 
-import com.senijoshua.donezo.data.repository.TaskRepositoryImpl
-import com.senijoshua.donezo.data.repository.TasksRepository
+import com.senijoshua.donezo.data.repository.tasks.TaskRepositoryImpl
+import com.senijoshua.donezo.data.repository.tasks.TasksRepository
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
