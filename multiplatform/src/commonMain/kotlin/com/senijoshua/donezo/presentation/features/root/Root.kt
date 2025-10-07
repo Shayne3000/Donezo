@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.senijoshua.donezo.presentation.features.characters.charactersGraph
 import com.senijoshua.donezo.presentation.features.completed.completedGraph
 import com.senijoshua.donezo.presentation.features.tasks.tasksGraph
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -100,6 +101,7 @@ fun Root(
             // App-level nested nav graphs
             tasksGraph()
             completedGraph()
+            charactersGraph(navController)
         }
     }
 }
