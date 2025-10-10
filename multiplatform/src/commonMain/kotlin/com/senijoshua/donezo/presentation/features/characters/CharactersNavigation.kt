@@ -21,12 +21,14 @@ data class CharactersDetailRoute(val id: Int)
 fun NavGraphBuilder.charactersGraph(navController: NavController) {
     navigation<CharactersGraph>(startDestination = CharactersListRoute) {
         composable<CharactersListRoute> {
-            CharactersListScreen { id ->
+            CharactersListScreen(navigateToDetail = { id ->
                 navController.navigate(CharactersDetailRoute(id))
-            }
+            })
         }
         composable<CharactersDetailRoute> {
-            CharactersDetailScreen()
+            CharactersDetailScreen(onBackPressed = {
+                navController.popBackStack()
+            })
         }
     }
 }

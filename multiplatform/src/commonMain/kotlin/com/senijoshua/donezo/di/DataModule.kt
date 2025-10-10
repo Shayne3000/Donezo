@@ -1,6 +1,6 @@
 package com.senijoshua.donezo.di
 
-import com.senijoshua.donezo.data.repository.tasks.TaskRepositoryImpl
+import com.senijoshua.donezo.data.repository.tasks.TasksRepositoryImpl
 import com.senijoshua.donezo.data.repository.tasks.TasksRepository
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -11,7 +11,7 @@ import org.koin.dsl.module
  */
 val dataModule  = module {
     single {
-        TaskRepositoryImpl(
+        TasksRepositoryImpl(
             local = get(),
             ioDispatcher = get(named("IO"))
         )

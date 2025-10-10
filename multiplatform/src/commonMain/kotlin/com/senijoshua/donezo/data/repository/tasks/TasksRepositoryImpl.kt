@@ -2,8 +2,8 @@ package com.senijoshua.donezo.data.repository.tasks
 
 import com.senijoshua.donezo.data.local.tasks.TaskDao
 import com.senijoshua.donezo.data.local.tasks.TaskEntity
+import com.senijoshua.donezo.data.mappers.tasks.toPresentation
 import com.senijoshua.donezo.data.utils.asResult
-import com.senijoshua.donezo.data.mappers.toPresentation
 import com.senijoshua.donezo.presentation.model.PresentationTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +14,7 @@ import kotlinx.datetime.todayIn
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-class TaskRepositoryImpl(
+class TasksRepositoryImpl(
     private val local: TaskDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : TasksRepository {
