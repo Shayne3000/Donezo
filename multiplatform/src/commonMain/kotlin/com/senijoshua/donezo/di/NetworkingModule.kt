@@ -27,8 +27,8 @@ val networkingModule = module {
 
     // declare ktor client instance
     single<HttpClient> {
-        // Not supplying an engine will allow the client to select during compile time,
-        // the engine appropriate for the specific target platform
+        // Not supplying an engine will allow the client to select
+        // the engine appropriate for the specific target platform during compile time
         // based on the supplied engine dependencies for each target in the build config file.
         HttpClient {
             install(ContentNegotiation) {
