@@ -1,4 +1,5 @@
 package com.senijoshua.donezo.data.remote.characters
 
-class CharactersApi {
+interface CharactersApi {
+    suspend fun getCharacters(): List<CharactersRemote>
 }
