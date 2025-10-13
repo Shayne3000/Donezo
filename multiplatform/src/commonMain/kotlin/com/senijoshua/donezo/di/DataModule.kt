@@ -18,11 +18,15 @@ val dataModule  = module {
     single {
         TasksRepositoryImpl(
             local = get(),
-            ioDispatcher = get(named("IO"))
+            ioDispatcher = get(named(IO_DISPATCHER))
         )
     } bind TasksRepository::class
 
     // Provision and inject the same CharactersRepositoryImpl instance
     // for CharactersRepositoryImpl and CharactersRepository dependencies
-    single { CharactersRepositoryImpl() } bind CharactersRepository::class
+    single { CharactersRepositoryImpl(
+        localDataSource = get(),
+        remoteDataSource = get(),
+        ioDispatcher = get(named(IO_DISPATCHER))
+    ) } bind CharactersRepository::class
 }

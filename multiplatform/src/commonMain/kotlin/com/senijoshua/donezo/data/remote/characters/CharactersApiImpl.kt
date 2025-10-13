@@ -6,8 +6,10 @@ import io.ktor.client.request.get
 
 private const val CHARACTERS_ENDPOINT = "characters"
 
-class CharactersApiImpl(private val httpClient: HttpClient) : CharactersApi{
+class CharactersApiImpl(private val httpClient: HttpClient) : CharactersApi {
     override suspend fun getCharacters(): List<CharactersRemote> {
-        return httpClient.get(CHARACTERS_ENDPOINT).body()
+        // With [use], we shut down the client's connection and free up resources
+        // after executing a request
+        return httpClient.use { it.get(CHARACTERS_ENDPOINT).body() }
     }
 }
