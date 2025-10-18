@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a92c7ae9d118bd737f94c1a68e365858",
+    "identityHash": "b6287d1c9f015f5b688e8eece1dcca26",
     "entities": [
       {
         "tableName": "tasks",
@@ -48,12 +48,36 @@
       },
       {
         "tableName": "characters",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `full_name` TEXT NOT NULL, `thumbnail_url` TEXT NOT NULL, `title` TEXT NOT NULL, `family` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "full_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailUrl",
+            "columnName": "thumbnail_url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "family",
+            "columnName": "family",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -67,7 +91,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a92c7ae9d118bd737f94c1a68e365858')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b6287d1c9f015f5b688e8eece1dcca26')"
     ]
   }
 }
