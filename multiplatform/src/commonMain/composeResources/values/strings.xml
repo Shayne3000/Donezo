@@ -4,7 +4,6 @@
     <string name = "completed_tab_title">Completed</string>
     <string name = "characters_tab_title">Characters</string>
     <string name = "generic_error_message">Something went wrong. Please try again later.</string>
-    <!--Empty state-->
     <!--Tasks screen-->
     <string name="complete_task_text">Mark done</string>
     <string name="new_task">New Task</string>
@@ -17,4 +16,7 @@
     <string name="completed_header">Completed</string>
     <string name="empty_state_completed_text">You have not completed any tasks yet. Mark some as done.</string>
     <string name="todo_task_text">Mark to-do</string>
+    <!--Characters screen-->
+    <string name="characters_header">Characters</string>
+    <string name="empty_character_list">There are no characters at the moment. Please try again later.</string>
 </resources>

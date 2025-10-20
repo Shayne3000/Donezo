@@ -179,14 +179,12 @@ private fun CompletedTaskItemDarkPreview() {
 @Composable
 private fun CompletedScreenLightPreview() {
     DonezoTheme {
-        Surface {
-            CompletedContent(
-                uiState = CompletedUiState.Success(completedTasks = previewTasks),
-                uiEvent = MutableSharedFlow(),
-                onMarkedAsTodo = {},
-                onDelete = {},
-            )
-        }
+        CompletedContent(
+            uiState = CompletedUiState.Success(completedTasks = previewTasks),
+            uiEvent = MutableSharedFlow(),
+            onMarkedAsTodo = {},
+            onDelete = {},
+        )
     }
 }
 
@@ -194,13 +192,11 @@ private fun CompletedScreenLightPreview() {
 @Composable
 private fun CompletedScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
-        Surface {
-            CompletedContent(
-                uiState = CompletedUiState.Success(completedTasks = previewTasks),
-                uiEvent = MutableSharedFlow(),
-                onMarkedAsTodo = {},
-                onDelete = {},
-            )
-        }
+        CompletedContent(
+            uiState = CompletedUiState.Success(completedTasks = previewTasks),
+            uiEvent = MutableSharedFlow(),
+            onMarkedAsTodo = {},
+            onDelete = {},
+        )
     }
 }

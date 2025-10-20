@@ -19,7 +19,7 @@ class CharactersRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher,
 ) : CharactersRepository {
 
-    override suspend fun getCharacters(): Flow<Result<List<Character>>> {
+    override fun getCharacters(): Flow<Result<List<Character>>> {
        return localDataSource.getCharacters()
            .map { charactersEntities ->
                charactersEntities.toPresentation()
