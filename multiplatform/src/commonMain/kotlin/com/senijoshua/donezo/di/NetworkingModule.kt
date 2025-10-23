@@ -4,13 +4,13 @@ import com.senijoshua.donezo.data.remote.characters.CharactersApi
 import com.senijoshua.donezo.data.remote.characters.CharactersApiImpl
 import com.senijoshua.donezo.utils.isDebugBuild
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.api.Send
+import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -41,18 +41,40 @@ val networkingModule = module {
             expectSuccess = true
             install(ContentNegotiation) {
                 // register kotlinx.json as the ktorClient's JSON serializer
-                json(json = get<Json>(), contentType = ContentType.Application.Json)
+                json(json = get<Json>())
             }
             defaultRequest {
                 url(BASE_URL)
             }
             install(Logging) {
-                logger = Logger.DEFAULT
-                level = if (isDebugBuild()) LogLevel.BODY else LogLevel.NONE
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        println("**Ktor Client** \n$message")
+                    }
+                }
+                level = if (isDebugBuild()) LogLevel.ALL else LogLevel.NONE
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
+            install(DefaultUTF8HeaderRemoval)
         }
     }
 
     single { CharactersApiImpl(httpClient = get()) } bind CharactersApi::class
+}
+
+/**
+ * A custom Ktor plugin that removes the `Accept-Charset: UTF-8` header
+ * that the Ktor client may add to requests when using certain
+ * configurations (e.g. ContentNegotiation plugin with the application/json
+ * default).
+ *
+ * This header can cause issues with some backend services (especially
+ * those using Cloudflare for security), as they might reject requests
+ * containing said header and return a 403 error.
+ */
+private val DefaultUTF8HeaderRemoval = createClientPlugin("DefaultKtorHeaderRemoval") {
+    on(Send) { request ->
+        request.headers.remove("Accept-Charset")
+        this.proceed(request)
+    }
 }
