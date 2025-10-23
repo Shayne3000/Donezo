@@ -18,11 +18,9 @@ import kotlinx.coroutines.flow.stateIn
  * Shared ViewModel for the characters tab destinations
  */
 class CharactersViewModel(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     repository: CharactersRepository
 ) : ViewModel() {
-    private val detailRoute: CharactersDetailRoute = savedStateHandle.toRoute()
-
     // Setup shared flow for one-time events like errors. Each screen would collect it independently as long as they are in the composition
     private val _uiEvent = MutableSharedFlow<CharactersUiEvent>(replay = 0, extraBufferCapacity = 1)
     val uiEvent: SharedFlow<CharactersUiEvent> = _uiEvent
@@ -45,6 +43,7 @@ class CharactersViewModel(
     // Setup a cold flow that kicks off its work on collection from the character detail UI
     // which then gets converted to a StateFlow i.e. a hot flow.
     val detailUiState: StateFlow<DetailUiState> = flow {
+        val detailRoute: CharactersDetailRoute = savedStateHandle.toRoute()
         val result = repository.getCharacterGivenId(detailRoute.id)
         when {
             result.isSuccess -> {
