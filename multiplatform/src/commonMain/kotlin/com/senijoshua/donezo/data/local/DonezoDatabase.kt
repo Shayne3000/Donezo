@@ -1,5 +1,6 @@
 package com.senijoshua.donezo.data.local
 
+import androidx.room.AutoMigration
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -11,7 +12,10 @@ import com.senijoshua.donezo.data.local.tasks.TaskDao
 import com.senijoshua.donezo.data.local.tasks.TaskEntity
 import com.senijoshua.donezo.data.local.utils.DateConverter
 
-@Database(entities = [TaskEntity::class, CharactersEntity::class], version = 1)
+@Database(
+    entities = [TaskEntity::class, CharactersEntity::class],
+    version = 1
+)
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(DateConverter::class)
 abstract class DonezoDatabase : RoomDatabase() {

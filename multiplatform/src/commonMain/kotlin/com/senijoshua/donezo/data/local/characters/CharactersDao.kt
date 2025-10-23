@@ -14,5 +14,5 @@ interface CharactersDao {
     fun getCharacters(): Flow<List<CharactersEntity>>
 
     @Query("SELECT * FROM characters WHERE id = :id")
-    fun getCharacterGivenId(id: Int): CharactersEntity
+    suspend fun getCharacterGivenId(id: Int): CharactersEntity
 }
