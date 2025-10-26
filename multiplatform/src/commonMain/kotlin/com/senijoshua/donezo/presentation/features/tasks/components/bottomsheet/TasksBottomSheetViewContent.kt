@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import com.senijoshua.donezo.presentation.model.PresentationTask
-import com.senijoshua.donezo.presentation.model.previewTasks
+import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getDateFormat
@@ -101,7 +101,7 @@ private fun TaskBottomSheetViewContentLightPreview() {
     DonezoTheme {
         Surface {
             TaskBottomSheetViewContent(
-                selectedTask = previewTasks[0],
+                selectedTask = tasksPreview[0],
                 onEditClicked = {},
             )
         }
@@ -114,7 +114,7 @@ private fun TaskBottomSheetViewContentDarkPreview() {
     DonezoTheme(darkTheme = true) {
         Surface {
             TaskBottomSheetViewContent(
-                selectedTask = previewTasks[0],
+                selectedTask = tasksPreview[0],
                 onEditClicked = {},
             )
         }

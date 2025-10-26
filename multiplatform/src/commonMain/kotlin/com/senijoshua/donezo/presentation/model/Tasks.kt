@@ -26,7 +26,7 @@ data class TaskUpdateDetails(
 )
 
 @OptIn(ExperimentalTime::class)
-internal val previewTasks = List(10) { index ->
+internal val tasksPreview = List(10) { index ->
     PresentationTask(
         id = index,
         title = "Check the task title $index times",

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.model.PresentationTask
-import com.senijoshua.donezo.presentation.model.previewTasks
+import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import donezo.multiplatform.generated.resources.Res
@@ -53,7 +53,7 @@ private fun TaskBottomSheetEditContentLightPreview() {
         Surface {
             TasksBottomSheetEditContent(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                selectedTask = previewTasks[0],
+                selectedTask = tasksPreview[0],
                 onSaveTask = {_,_ ->},
             )
         }
@@ -67,7 +67,7 @@ private fun TaskBottomSheetEditContentDarkPreview() {
         Surface {
             TasksBottomSheetEditContent(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                selectedTask = previewTasks[0],
+                selectedTask = tasksPreview[0],
                 onSaveTask = {_,_ ->},
             )
         }

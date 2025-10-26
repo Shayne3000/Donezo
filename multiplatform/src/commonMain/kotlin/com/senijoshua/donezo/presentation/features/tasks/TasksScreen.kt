@@ -37,7 +37,7 @@ import com.senijoshua.donezo.presentation.components.TaskItem
 import com.senijoshua.donezo.presentation.features.tasks.components.bottomsheet.TasksBottomSheet
 import com.senijoshua.donezo.presentation.model.PresentationTask
 import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
-import com.senijoshua.donezo.presentation.model.previewTasks
+import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
@@ -243,7 +243,7 @@ internal enum class TaskBottomSheetMode {
 private fun TasksScreenLightPreview() {
     DonezoTheme {
         TasksContent(
-            uiState = TasksUIState.Success(tasks = previewTasks),
+            uiState = TasksUIState.Success(tasks = tasksPreview),
             onSaveTask = { _, _ -> },
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},
@@ -257,7 +257,7 @@ private fun TasksScreenLightPreview() {
 private fun TasksScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         TasksContent(
-            uiState = TasksUIState.Success(tasks = previewTasks),
+            uiState = TasksUIState.Success(tasks = tasksPreview),
             onSaveTask = { _, _ -> },
             snackBarHostState = remember { SnackbarHostState() },
             onDeleteTask = {},

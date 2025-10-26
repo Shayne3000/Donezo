@@ -24,7 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.components.LoadingScreen
 import com.senijoshua.donezo.presentation.components.TaskItem
-import com.senijoshua.donezo.presentation.model.previewTasks
+import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
@@ -150,7 +150,7 @@ private fun CompletedTaskItemLightPreview() {
         Surface {
             TaskItem(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                task = previewTasks[0],
+                task = tasksPreview[0],
                 isCompleted = true,
                 onDelete = {},
                 onClick = {}
@@ -166,7 +166,7 @@ private fun CompletedTaskItemDarkPreview() {
         Surface {
             TaskItem(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                task = previewTasks[0],
+                task = tasksPreview[0],
                 isCompleted = true,
                 onDelete = {},
                 onClick = {}
@@ -180,7 +180,7 @@ private fun CompletedTaskItemDarkPreview() {
 private fun CompletedScreenLightPreview() {
     DonezoTheme {
         CompletedContent(
-            uiState = CompletedUiState.Success(completedTasks = previewTasks),
+            uiState = CompletedUiState.Success(completedTasks = tasksPreview),
             uiEvent = MutableSharedFlow(),
             onMarkedAsTodo = {},
             onDelete = {},
@@ -193,7 +193,7 @@ private fun CompletedScreenLightPreview() {
 private fun CompletedScreenDarkPreview() {
     DonezoTheme(darkTheme = true) {
         CompletedContent(
-            uiState = CompletedUiState.Success(completedTasks = previewTasks),
+            uiState = CompletedUiState.Success(completedTasks = tasksPreview),
             uiEvent = MutableSharedFlow(),
             onMarkedAsTodo = {},
             onDelete = {},

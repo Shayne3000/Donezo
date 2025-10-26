@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.senijoshua.donezo.presentation.model.PresentationTask
-import com.senijoshua.donezo.presentation.model.previewTasks
+import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getDateFormat
@@ -204,7 +204,7 @@ private fun TaskItemLightPreview() {
         Surface {
             TaskItem(
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                task = previewTasks[0],
+                task = tasksPreview[0],
                 isCompleted = false,
                 onDelete = {},
                 onClick = {}
@@ -220,7 +220,7 @@ private fun TaskItemDarkPreview() {
         Surface {
             TaskItem(
                 modifier = Modifier.padding(16.dp),
-                task = previewTasks[0],
+                task = tasksPreview[0],
                 isCompleted = false,
                 onDelete = {},
                 onClick = {}
