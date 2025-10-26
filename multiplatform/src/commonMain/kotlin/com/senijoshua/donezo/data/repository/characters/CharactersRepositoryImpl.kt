@@ -5,7 +5,7 @@ import com.senijoshua.donezo.data.mappers.characters.toLocal
 import com.senijoshua.donezo.data.mappers.characters.toPresentation
 import com.senijoshua.donezo.data.remote.characters.CharactersApi
 import com.senijoshua.donezo.data.utils.asResult
-import com.senijoshua.donezo.presentation.features.characters.Character
+import com.senijoshua.donezo.presentation.model.Character
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

@@ -2,7 +2,7 @@ package com.senijoshua.donezo.data.mappers.characters
 
 import com.senijoshua.donezo.data.local.characters.CharactersEntity
 import com.senijoshua.donezo.data.remote.characters.CharactersRemote
-import com.senijoshua.donezo.presentation.features.characters.Character
+import com.senijoshua.donezo.presentation.model.Character
 
 fun CharactersRemote.toLocal() = CharactersEntity(
     id = id,

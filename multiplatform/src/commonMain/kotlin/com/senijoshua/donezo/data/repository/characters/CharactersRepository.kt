@@ -1,6 +1,6 @@
 package com.senijoshua.donezo.data.repository.characters
 
-import com.senijoshua.donezo.presentation.features.characters.Character
+import com.senijoshua.donezo.presentation.model.Character
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {

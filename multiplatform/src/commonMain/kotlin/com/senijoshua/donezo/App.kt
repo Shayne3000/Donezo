@@ -16,7 +16,7 @@ import okio.FileSystem
 
 @Composable
 fun App() {
-    // Coil ImageLoader configuration
+    // Coil Global ImageLoader configuration
     setSingletonImageLoaderFactory { context: PlatformContext ->
         ImageLoader.Builder(context)
             .memoryCachePolicy(CachePolicy.ENABLED)

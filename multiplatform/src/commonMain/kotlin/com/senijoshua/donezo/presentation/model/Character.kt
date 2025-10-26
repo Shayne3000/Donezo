@@ -1,4 +1,4 @@
-package com.senijoshua.donezo.presentation.features.characters
+package com.senijoshua.donezo.presentation.model
 
 /***
  * Presentation-layer Character model
@@ -10,3 +10,7 @@ data class Character(
     val title: String,
     val family: String
 )
+
+internal val characterPreview = List(10) { index ->
+
+}
