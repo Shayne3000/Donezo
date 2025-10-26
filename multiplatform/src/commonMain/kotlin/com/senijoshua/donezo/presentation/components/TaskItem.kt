@@ -32,7 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -55,11 +55,11 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  */
 @Composable
 fun TaskItem(
-    task: PresentationTask,
+    task: Task,
     isCompleted: Boolean,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier,
-    onEdit: (PresentationTask) -> Unit = {},
+    onEdit: (Task) -> Unit = {},
     onMarkedAsDone: () -> Unit = {},
     onMarkedAsTodo: () -> Unit = {},
     onClick: () -> Unit = {},

@@ -3,7 +3,7 @@ package com.senijoshua.donezo.presentation.features.tasks
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senijoshua.donezo.data.repository.tasks.TasksRepository
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -80,7 +80,7 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
  * Representation of the state of the UI at any instant in time.
  */
 sealed interface TasksUIState {
-    data class Success(val tasks: List<PresentationTask>) : TasksUIState
+    data class Success(val tasks: List<Task>) : TasksUIState
     data object Loading : TasksUIState
 }
 

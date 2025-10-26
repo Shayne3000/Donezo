@@ -4,7 +4,7 @@ import com.senijoshua.donezo.data.local.tasks.TaskDao
 import com.senijoshua.donezo.data.local.tasks.TaskEntity
 import com.senijoshua.donezo.data.mappers.tasks.toPresentation
 import com.senijoshua.donezo.data.utils.asResult
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -32,7 +32,7 @@ class TasksRepositoryImpl(
         }
     }
 
-    override fun getTasks(): Flow<Result<List<PresentationTask>>> {
+    override fun getTasks(): Flow<Result<List<Task>>> {
         return local.getTasks()
             .map { taskEntities -> taskEntities.toPresentation() }
             .asResult()
@@ -44,7 +44,7 @@ class TasksRepositoryImpl(
         }
     }
 
-    override fun getCompletedTasks(): Flow<Result<List<PresentationTask>>> {
+    override fun getCompletedTasks(): Flow<Result<List<Task>>> {
         return local.getCompletedTasks()
             .map { taskEntities -> taskEntities.toPresentation() }
             .asResult()

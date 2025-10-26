@@ -35,7 +35,7 @@ import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.components.LoadingScreen
 import com.senijoshua.donezo.presentation.components.TaskItem
 import com.senijoshua.donezo.presentation.features.tasks.components.bottomsheet.TasksBottomSheet
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
@@ -100,7 +100,7 @@ private fun TasksContent(
     val coroutineScope = rememberCoroutineScope()
     var taskBottomSheetMode by mutableStateOf(TaskBottomSheetMode.CREATE)
     var hasCreatedNewItem by remember { mutableStateOf(false) }
-    var selectedTask: PresentationTask? = null
+    var selectedTask: Task? = null
 
     Scaffold(
         floatingActionButton = {

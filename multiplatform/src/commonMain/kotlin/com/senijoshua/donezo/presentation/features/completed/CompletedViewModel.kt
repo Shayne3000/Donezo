@@ -3,7 +3,7 @@ package com.senijoshua.donezo.presentation.features.completed
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.senijoshua.donezo.data.repository.tasks.TasksRepository
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,7 +51,7 @@ class CompletedViewModel(private val repository: TasksRepository) : ViewModel() 
  * Representation of the UI state at any instant in time
  */
 sealed interface CompletedUiState {
-    data class Success(val completedTasks: List<PresentationTask>) : CompletedUiState
+    data class Success(val completedTasks: List<Task>) : CompletedUiState
     data object Loading : CompletedUiState
 }
 

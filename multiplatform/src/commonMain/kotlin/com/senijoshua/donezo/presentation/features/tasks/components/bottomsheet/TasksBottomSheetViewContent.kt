@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import com.senijoshua.donezo.presentation.model.PresentationTask
+import com.senijoshua.donezo.presentation.model.Task
 import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
@@ -31,7 +31,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TaskBottomSheetViewContent(
-    selectedTask: PresentationTask,
+    selectedTask: Task,
     onEditClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {

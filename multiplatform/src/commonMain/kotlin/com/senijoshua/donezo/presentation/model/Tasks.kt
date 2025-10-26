@@ -9,7 +9,7 @@ import kotlin.time.ExperimentalTime
 /**
  * Presentation-layer representation of a Task type
  */
-data class PresentationTask(
+data class Task(
     val id: Int,
     val title: String,
     val description: String,
@@ -17,7 +17,7 @@ data class PresentationTask(
 )
 
 /**
- * Model for encapsulating update data for a [PresentationTask]
+ * Model for encapsulating update data for a [Task]
  */
 data class TaskUpdateDetails(
     val id: Int,
@@ -27,7 +27,7 @@ data class TaskUpdateDetails(
 
 @OptIn(ExperimentalTime::class)
 internal val tasksPreview = List(10) { index ->
-    PresentationTask(
+    Task(
         id = index,
         title = "Check the task title $index times",
         description = "Check the task description $index times and ensure it's correct.",
