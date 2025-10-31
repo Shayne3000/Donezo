@@ -188,7 +188,7 @@ private fun CharacterItem(
             model = character.thumbnailUrl,
             placeholder = painterResource(Res.drawable.ic_account_circle),
             contentDescription = null,
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Crop
         )
         Column(modifier = Modifier
             .padding(start = MaterialTheme.dimensions.xSmall)
