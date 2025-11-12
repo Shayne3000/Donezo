@@ -37,8 +37,6 @@ val networkingModule = module {
         // the engine appropriate for the specific target platform during compile time
         // based on the supplied engine dependencies for each target in the build config file.
         HttpClient {
-            // setup default response validation for catching non-2xx responses
-            expectSuccess = true
             install(ContentNegotiation) {
                 // register kotlinx.json as the ktorClient's JSON serializer
                 json(json = get<Json>())
