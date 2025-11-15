@@ -115,9 +115,6 @@ kotlin { // Config block for the Compose multiplatform project
             // Navigation compose
             implementation(libs.navigation.compose)
 
-            // RevenueCat placeholder
-            implementation(libs.revenuecat.placeholder)
-
             // Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)

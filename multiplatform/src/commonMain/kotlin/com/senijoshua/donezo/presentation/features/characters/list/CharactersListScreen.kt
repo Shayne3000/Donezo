@@ -2,6 +2,7 @@ package com.senijoshua.donezo.presentation.features.characters.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,8 +34,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import com.revenuecat.placeholder.PlaceholderDefaults
-import com.revenuecat.placeholder.placeholder
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.features.characters.CharactersUiEvent
 import com.senijoshua.donezo.presentation.features.characters.CharactersViewModel
@@ -44,13 +43,12 @@ import com.senijoshua.donezo.presentation.model.characterPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
+import com.valentinilk.shimmer.shimmer
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.characters_header
 import donezo.multiplatform.generated.resources.empty_character_list
-import donezo.multiplatform.generated.resources.ic_account_circle
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -109,7 +107,9 @@ private fun CharactersListContent(
 
             when (state) {
                 is ListUiState.Loading -> {
-                    LoadingScreen(modifier = Modifier.fillMaxSize())
+                    CharacterListLoadingScreen(
+                        modifier = Modifier.fillMaxSize()
+                    )
                 }
 
                 is ListUiState.Success -> {
@@ -127,17 +127,15 @@ private fun CharactersListContent(
                             ) { index, character ->
                                 CharacterItem(
                                     modifier = Modifier
-                                        .clickable{
+                                        .clickable {
                                             onCharacterItemClicked(character.id)
                                         }
                                         .padding(vertical = MaterialTheme.dimensions.xSmall),
                                     character = character,
-                                    isLoading = false,
                                 )
 
                                 if (index != charactersList.lastIndex) {
                                     HorizontalDivider(
-                                        modifier = Modifier,
                                         thickness = MaterialTheme.dimensions.xxxSmall,
                                         color = MaterialTheme.colorScheme.outlineVariant
                                     )
@@ -165,7 +163,6 @@ private fun CharactersListContent(
 @Composable
 private fun CharacterItem(
     character: Character,
-    isLoading: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -174,35 +171,22 @@ private fun CharacterItem(
             .padding(horizontal = MaterialTheme.dimensions.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
+
         AsyncImage(
             modifier = Modifier
                 .size(MaterialTheme.dimensions.xxLarge)
-                .clip(CircleShape)
-                .placeholder(
-                    enabled = isLoading,
-                    color = MaterialTheme.colorScheme.outlineVariant,
-                    shape = CircleShape,
-                    highlight = PlaceholderDefaults.shimmer
-                )
-            ,
+                .clip(CircleShape),
             model = character.thumbnailUrl,
-            placeholder = painterResource(Res.drawable.ic_account_circle),
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
-        Column(modifier = Modifier
-            .padding(start = MaterialTheme.dimensions.xSmall)
-            .fillMaxWidth(),
+
+        Column(
+            modifier = Modifier
+                .padding(start = MaterialTheme.dimensions.xSmall)
+                .fillMaxWidth(),
         ) {
             Text(
-                modifier = Modifier.placeholder(
-                    enabled = isLoading,
-                    color = MaterialTheme.colorScheme.outlineVariant,
-                    shape = RoundedCornerShape(
-                        MaterialTheme.dimensions.xxSmall
-                    ),
-                    highlight = PlaceholderDefaults.shimmer
-                ),
                 text = character.fullName,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -211,15 +195,7 @@ private fun CharacterItem(
             )
 
             Text(
-                modifier = Modifier.padding(top = MaterialTheme.dimensions.xSmall)
-                    .placeholder(
-                        enabled = isLoading,
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        shape = RoundedCornerShape(
-                            MaterialTheme.dimensions.xxSmall
-                        ),
-                        highlight = PlaceholderDefaults.shimmer
-                    ),
+                modifier = Modifier.padding(top = MaterialTheme.dimensions.xSmall),
                 text = character.title,
                 style = MaterialTheme.typography.bodyMedium.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onSurface,
@@ -231,18 +207,55 @@ private fun CharacterItem(
 }
 
 @Composable
-private fun LoadingScreen(modifier: Modifier) {
+private fun CharacterListLoadingScreen(modifier: Modifier) {
     Column(modifier) {
         repeat(3, { index ->
-            CharacterItem(
-                modifier = Modifier.padding(vertical = MaterialTheme.dimensions.xSmall),
-                character = characterPreview[0],
-                isLoading = true,
-            )
+            Row(
+                modifier = Modifier
+                    .shimmer()
+                    .padding(
+                        horizontal = MaterialTheme.dimensions.small,
+                        vertical = MaterialTheme.dimensions.xSmall
+                    )
+                    .height(MaterialTheme.dimensions.xxxLarge),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(MaterialTheme.dimensions.xxLarge)
+                        .clip(CircleShape)
+                        .background(color = MaterialTheme.colorScheme.outlineVariant)
+                )
+
+                Column(
+                    modifier = Modifier
+                        .padding(start = MaterialTheme.dimensions.xSmall)
+                        .fillMaxWidth(),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(MaterialTheme.dimensions.medium)
+                            .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                            .background(color = MaterialTheme.colorScheme.outlineVariant)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .padding(top = MaterialTheme.dimensions.xSmall)
+                            .size(
+                                width = MaterialTheme.dimensions.custom112,
+                                height = MaterialTheme.dimensions.medium
+                            )
+                            .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
+                            .background(color = MaterialTheme.colorScheme.outlineVariant)
+                    )
+                }
+            }
 
             if (index != 2) {
                 HorizontalDivider(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     thickness = MaterialTheme.dimensions.xxxSmall,
                     color = MaterialTheme.colorScheme.outlineVariant
                 )
@@ -259,7 +272,6 @@ private fun CharactersItemLightPreview() {
             CharacterItem(
                 character = characterPreview[0],
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                isLoading = false,
             )
         }
     }
@@ -268,12 +280,11 @@ private fun CharactersItemLightPreview() {
 @Preview
 @Composable
 private fun CharactersItemDarkPreview() {
-    DonezoTheme(darkTheme = true){
+    DonezoTheme(darkTheme = true) {
         Surface {
             CharacterItem(
                 character = characterPreview[0],
                 modifier = Modifier.padding(MaterialTheme.dimensions.small),
-                isLoading = false,
             )
         }
     }
@@ -284,7 +295,7 @@ private fun CharactersItemDarkPreview() {
 private fun CharactersListLightPreview() {
     DonezoTheme {
         CharactersListContent(
-            state = ListUiState.Success(characters = characterPreview),
+            state = ListUiState.Loading,//.Success(characters = characterPreview),
             uiEvent = MutableSharedFlow()
         )
     }
