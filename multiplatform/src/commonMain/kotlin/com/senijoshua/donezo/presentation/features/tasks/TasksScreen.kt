@@ -40,6 +40,7 @@ import com.senijoshua.donezo.presentation.model.TaskUpdateDetails
 import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
+import com.senijoshua.donezo.presentation.utils.UiEventHandler
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.empty_state_todo_text
@@ -73,13 +74,11 @@ fun TasksScreen(
         }
     )
 
-    LaunchedEffect(Unit) {
-        viewModel.uiEvent.collect { events ->
-            when (events) {
-                is TasksUIEvent.Error -> {
-                    val message = events.message ?: genericErrorMessage
-                    snackBarHostState.showSnackbar(message)
-                }
+    UiEventHandler( eventFlow = viewModel.uiEvent) { event ->
+        when (event) {
+            is TasksUIEvent.Error -> {
+                val message = event.message ?: genericErrorMessage
+                snackBarHostState.showSnackbar(message)
             }
         }
     }

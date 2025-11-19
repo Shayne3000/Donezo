@@ -20,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senijoshua.donezo.presentation.components.EmptyState
 import com.senijoshua.donezo.presentation.components.LoadingScreen
@@ -27,6 +28,7 @@ import com.senijoshua.donezo.presentation.components.TaskItem
 import com.senijoshua.donezo.presentation.model.tasksPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
+import com.senijoshua.donezo.presentation.utils.UiEventHandler
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.completed_header
@@ -62,6 +64,7 @@ private fun CompletedContent(
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = getGenericErrorMessage()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     Scaffold(snackbarHost = {
         SnackbarHost(hostState = snackBarHostState) { data ->
@@ -127,6 +130,15 @@ private fun CompletedContent(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    UiEventHandler( eventFlow = uiEvent) { event ->
+        when (event) {
+            is CompletedUiEvent.Error -> {
+                val message = event.message ?: genericErrorMessage
+                snackBarHostState.showSnackbar(message)
             }
         }
     }

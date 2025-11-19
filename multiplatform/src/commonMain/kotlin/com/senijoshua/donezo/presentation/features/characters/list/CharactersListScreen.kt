@@ -23,7 +23,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,6 +41,7 @@ import com.senijoshua.donezo.presentation.model.Character
 import com.senijoshua.donezo.presentation.model.characterPreview
 import com.senijoshua.donezo.presentation.theme.DonezoTheme
 import com.senijoshua.donezo.presentation.theme.dimensions
+import com.senijoshua.donezo.presentation.utils.UiEventHandler
 import com.senijoshua.donezo.presentation.utils.getGenericErrorMessage
 import com.valentinilk.shimmer.shimmer
 import donezo.multiplatform.generated.resources.Res
@@ -75,11 +75,11 @@ private fun CharactersListContent(
     uiEvent: SharedFlow<CharactersUiEvent>,
     onCharacterItemClicked: (Int) -> Unit = {}
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = getGenericErrorMessage()
 
     Scaffold(snackbarHost = {
-        SnackbarHost(hostState = snackbarHostState) { data ->
+        SnackbarHost(hostState = snackBarHostState) { data ->
             Snackbar(
                 snackbarData = data,
                 containerColor = MaterialTheme.colorScheme.error,
@@ -148,13 +148,11 @@ private fun CharactersListContent(
         }
     }
 
-    LaunchedEffect(Unit) {
-        uiEvent.collect { event ->
-            when (event) {
-                is CharactersUiEvent.Error -> {
-                    val message = event.message ?: genericErrorMessage
-                    snackbarHostState.showSnackbar(message)
-                }
+    UiEventHandler( eventFlow = uiEvent) { event ->
+        when (event) {
+            is CharactersUiEvent.Error -> {
+                val message = event.message ?: genericErrorMessage
+                snackBarHostState.showSnackbar(message)
             }
         }
     }

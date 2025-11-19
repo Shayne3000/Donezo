@@ -23,7 +23,7 @@ class CharactersViewModel(
     repository: CharactersRepository
 ) : ViewModel() {
     // Setup shared flow for one-time events like errors. Each screen would collect it independently as long as they are in the composition
-    private val _uiEvent = MutableSharedFlow<CharactersUiEvent>(replay = 0, extraBufferCapacity = 1)
+    private val _uiEvent = MutableSharedFlow<CharactersUiEvent>(replay = 0)
     val uiEvent: SharedFlow<CharactersUiEvent> = _uiEvent
 
     // Setup observable data holding state flow that kicks off its work on collection from the characterlist UI
@@ -48,13 +48,12 @@ class CharactersViewModel(
         val result = repository.getCharacterGivenId(detailRoute.id)
         when {
             result.isSuccess -> {
-                val data = result.getOrNull()
+                val data = result.getOrNull()!!
                 emit(DetailUiState.Success(data))
             }
             result.isFailure -> {
-                val error = result.exceptionOrNull()
-                _uiEvent.emit(CharactersUiEvent.Error(error?.message))
-                emit(DetailUiState.Success(null))
+                val error = result.exceptionOrNull()!!
+                _uiEvent.emit(CharactersUiEvent.Error(error.message))
             }
         }
     }.stateIn(
@@ -76,7 +75,7 @@ sealed interface ListUiState {
  * Representation of the characterDetail at each instant in time
  */
 sealed interface DetailUiState {
-    data class Success(val character: Character?) : DetailUiState
+    data class Success(val character: Character) : DetailUiState
     data object Loading : DetailUiState
 }
 
