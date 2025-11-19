@@ -78,15 +78,16 @@ private fun CharactersListContent(
     val snackBarHostState = remember { SnackbarHostState() }
     val genericErrorMessage = getGenericErrorMessage()
 
-    Scaffold(snackbarHost = {
-        SnackbarHost(hostState = snackBarHostState) { data ->
-            Snackbar(
-                snackbarData = data,
-                containerColor = MaterialTheme.colorScheme.error,
-                contentColor = MaterialTheme.colorScheme.onError
-            )
-        }
-    }) { paddingValues ->
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackBarHostState) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
+                )
+            }
+        }) { paddingValues ->
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -148,7 +149,7 @@ private fun CharactersListContent(
         }
     }
 
-    UiEventHandler( eventFlow = uiEvent) { event ->
+    UiEventHandler(eventFlow = uiEvent) { event ->
         when (event) {
             is CharactersUiEvent.Error -> {
                 val message = event.message ?: genericErrorMessage
