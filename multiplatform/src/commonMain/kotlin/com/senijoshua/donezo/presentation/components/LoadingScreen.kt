@@ -73,14 +73,16 @@ fun LoadingScreen(
 
                     Box(
                         modifier = Modifier
-                            .padding(top = MaterialTheme.dimensions.xxSmall).fillMaxWidth()
+                            .padding(top = MaterialTheme.dimensions.xxSmall)
+                            .fillMaxWidth()
                             .height(MaterialTheme.dimensions.medium)
                             .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
                             .background(color = MaterialTheme.colorScheme.outlineVariant)
                     )
                     Box(
                         modifier = Modifier
-                            .padding(top = MaterialTheme.dimensions.xSmall).fillMaxWidth()
+                            .padding(top = MaterialTheme.dimensions.xSmall)
+                            .fillMaxWidth()
                             .height(MaterialTheme.dimensions.xLarge)
                             .clip(RoundedCornerShape(MaterialTheme.dimensions.xxSmall))
                             .background(color = MaterialTheme.colorScheme.outlineVariant)

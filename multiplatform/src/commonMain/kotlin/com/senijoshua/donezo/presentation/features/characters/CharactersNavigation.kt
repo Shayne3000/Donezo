@@ -25,6 +25,7 @@ fun NavGraphBuilder.charactersGraph(navController: NavController) {
                 navController.navigate(CharactersDetailRoute(id))
             })
         }
+
         composable<CharactersDetailRoute> {
             CharactersDetailScreen(onBackPressed = {
                 navController.popBackStack()

@@ -294,7 +294,7 @@ private fun CharactersItemDarkPreview() {
 private fun CharactersListLightPreview() {
     DonezoTheme {
         CharactersListContent(
-            state = ListUiState.Loading,//.Success(characters = characterPreview),
+            state = ListUiState.Success(characters = characterPreview),
             uiEvent = MutableSharedFlow()
         )
     }
