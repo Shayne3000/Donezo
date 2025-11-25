@@ -18,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -73,7 +74,27 @@ fun Root(
                         onClick = {
                             selectedDestinationIndex = index
                             navController.navigate(appLevelRoute.route) {
+                                // Persist tab state before navigating to another top-level route
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    /**
+                                     * This preserves the entire navigation back stack
+                                     * of the popped destinations (i.e. detail) in the dedicated graph of the tab.
+                                     * The state saved includes:
+                                     * - Its entire back stack ( e.g. list → detail)
+                                     * - The state of each destination (e.g. scroll position in list), and
+                                     * - The ViewModels tied to those destinations.
+                                     */
+                                    saveState = true
+                                }
                                 launchSingleTop = true
+                                /**
+                                 * This restores that entire navigation back stack and state
+                                 * of the popped destinations in the specified graph of the tab.
+                                 * So, detail that was popped and whose state was saved
+                                 * from (list → detail) resulting in (list) gets
+                                 * restored back to (list → detail)
+                                 */
+                                restoreState = true
                             }
                         },
                         icon = {
