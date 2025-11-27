@@ -66,7 +66,7 @@ fun DonezoTheme(
         // Can now implicitly access Dimensions in any descendant
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = DonezoTypography(),
+            typography = donezoTypography(),
             content = content
         )
     }
