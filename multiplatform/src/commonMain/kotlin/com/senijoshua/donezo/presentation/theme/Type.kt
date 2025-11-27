@@ -18,7 +18,7 @@ import network.chaintech.sdpcomposemultiplatform.ssp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-private fun Lexend() = FontFamily(
+private fun lexend() = FontFamily(
     Font(resource = Res.font.Lexend_ExtraLight, weight = FontWeight.ExtraLight),
     Font(resource = Res.font.Lexend_Light, weight = FontWeight.Light),
     Font(resource = Res.font.Lexend_Thin, weight = FontWeight.Thin),
@@ -30,14 +30,14 @@ private fun Lexend() = FontFamily(
 )
 
 @Composable
-internal fun DonezoTypography(): Typography {
-    val lexend = Lexend()
+internal fun donezoTypography(): Typography {
+    val lexendFontFamily = lexend()
 
     return Typography(
         //// Headers ////
         // Screen header
         headlineMedium = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 28.ssp,
             lineHeight = 38.ssp
@@ -45,7 +45,7 @@ internal fun DonezoTypography(): Typography {
 
         // Dialog title
         titleLarge = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 22.ssp,
             lineHeight = 28.ssp
@@ -53,7 +53,7 @@ internal fun DonezoTypography(): Typography {
 
         // Card title
         titleMedium = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 16.ssp,
             lineHeight = 24.ssp,
@@ -62,7 +62,7 @@ internal fun DonezoTypography(): Typography {
 
         //// Body ////
         bodyLarge = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 16.ssp,
             lineHeight = 24.ssp,
@@ -70,7 +70,7 @@ internal fun DonezoTypography(): Typography {
         ),
 
         bodyMedium = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.ssp,
             lineHeight = 20.ssp,
@@ -78,7 +78,7 @@ internal fun DonezoTypography(): Typography {
         ),
 
         bodySmall = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 12.ssp,
             lineHeight = 16.ssp,
@@ -86,16 +86,8 @@ internal fun DonezoTypography(): Typography {
         ),
 
         //// Buttons ////
-        labelLarge = TextStyle(
-            fontFamily = lexend,
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.ssp,
-            lineHeight = 20.ssp,
-            letterSpacing = 0.1.ssp
-        ),
-
         labelMedium = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 12.ssp,
             lineHeight = 26.ssp,
@@ -103,7 +95,7 @@ internal fun DonezoTypography(): Typography {
         ),
 
         labelSmall = TextStyle(
-            fontFamily = lexend,
+            fontFamily = lexendFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 11.ssp,
             lineHeight = 16.ssp,
