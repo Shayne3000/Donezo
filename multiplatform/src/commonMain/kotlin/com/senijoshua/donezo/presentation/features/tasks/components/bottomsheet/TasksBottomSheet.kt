@@ -18,8 +18,12 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.TextFieldValue
 import com.senijoshua.donezo.presentation.components.DonezoTextField
 import com.senijoshua.donezo.presentation.features.tasks.TaskBottomSheetMode
@@ -30,6 +34,7 @@ import donezo.multiplatform.generated.resources.Res
 import donezo.multiplatform.generated.resources.description_placeholder
 import donezo.multiplatform.generated.resources.save
 import donezo.multiplatform.generated.resources.title_placeholder
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,6 +102,8 @@ internal fun TaskBottomSheetEditableContent(
     onDescriptionChanged: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -131,7 +138,7 @@ internal fun TaskBottomSheetEditableContent(
 
         DonezoTextField(
             value = title,
-            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small),
+            modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.dimensions.small).focusRequester(focusRequester),
             placeholderText = stringResource(Res.string.title_placeholder),
             isSingleLine = true,
             onValueChanged = { newTextFieldValue ->
@@ -150,5 +157,15 @@ internal fun TaskBottomSheetEditableContent(
             },
             maxLines = 5
         )
+
+        LaunchedEffect(Unit) {
+            /*
+             * On iOS, the UI sometimes isn’t ready for focus immediately
+             * after entering the composition so a small delay
+             * improves reliability and avoids any UI jank.
+             */
+            delay(300)
+            focusRequester.requestFocus()
+        }
     }
 }
