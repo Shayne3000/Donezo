@@ -48,11 +48,6 @@ internal fun TasksBottomSheet(
     modifier: Modifier = Modifier,
     taskBottomSheetState: SheetState
 ) {
-    val saveAndDismiss: (TaskUpdateDetails, isNewTask: Boolean) -> Unit = { task, isNewTask ->
-        onDismiss()
-        onSaveTask(task, isNewTask)
-    }
-
     ModalBottomSheet(
         modifier = modifier,
         sheetState = taskBottomSheetState,
@@ -162,7 +157,7 @@ internal fun TaskBottomSheetEditableContent(
             /*
              * On iOS, the UI sometimes isn’t ready for focus immediately
              * after entering the composition so a small delay
-             * improves reliability and avoids any UI jank.
+             * improves reliability and avoids outlandish UI jank.
              */
             delay(300)
             focusRequester.requestFocus()
